@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
+  <Tracking>
+    <ImageTarget name="20170324_171441_1" size="1.000000 0.649912" />
+    <ImageTarget name="20170324_164817" size="1.000000 1.138750" />
+    <ImageTarget name="vrMarkTest" size="1.000000 0.558685" />
+  </Tracking>
+</QCARConfig>

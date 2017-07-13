@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'com.trello.victor'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.trello:victor:0.3.0'
+    }
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    def indoorAtlasApiKey = project.properties['indoorAtlasApiKey'] ?: "api-key-not-set";
+    def indoorAtlasApiSecret = project.properties['indoorAtlasApiSecret'] ?: "api-secrect-not-set";
+
+    defaultConfig {
+        applicationId "com.omni.newtaipeifarm"
+        minSdkVersion 18
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        resValue "string", "indoor_atlas_api_key", indoorAtlasApiKey
+        resValue "string", "indoor_atlas_api_secret", indoorAtlasApiSecret
+
+        // for unity *.so
+        ndk {
+            moduleName "jnilib"
+            abiFilters "armeabi-v7a"
+        }
+    }
+
+    sourceSets {
+        main {
+            svg.srcDir 'svg'
+        }
+    }
+
+    buildTypes {
+        debug {
+            jniDebuggable true
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.google.android.gms:play-services-maps:10.2.0'
+    compile 'com.google.android.gms:play-services:10.2.0'
+    compile 'com.google.android.gms:play-services-places:10.0.1'
+    compile 'com.google.maps.android:android-maps-utils:0.4+'
+    compile 'com.android.support:design:25.3.1'
+//    compile 'com.android.support:recyclerview-v7:25.3.1'
+    compile 'com.android.support:mediarouter-v7:25.3.1'
+    compile 'com.mcxiaoke.volley:library:1.0.19'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.indooratlas.android:indooratlas-android-sdk:2.5.0-beta-777'
+    compile 'com.google.code.gson:gson:2.8.0'
+    testCompile 'junit:junit:4.12'
+}
+
+victor {
+    // Any assets defined in relative terms needs a base DPI specified
+    svgDpi = 72
+
+    // Do not generate these densities for SVG assets
+    excludeDensities = ['ldpi', 'xxxhdpi']
+
+    // WARNING: EXPERIMENTAL
+    // Generates Android drawables instead of PNGs.
+    //
+    // This is known not to work on only a subset of SVGs (e.g., does not support any value besides px).
+    generateVectorDrawables = true
+}

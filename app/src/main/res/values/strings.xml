@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">NewTaipeiFarm</string>
+    <string name="title_activity_maps">Map</string>
+
+    <string name="farm_content_pager_title_list">列表</string>
+    <string name="farm_content_pager_title_search">搜尋</string>
+    <string name="more">MORE</string>
+    <string name="search">Search</string>
+    <string name="venue_search">區域篩選</string>
+    <string name="category_search">類別篩選</string>
+    <string name="search_range">搜尋範圍 %1$d km</string>
+    <string name="tool_bar_last_step">上一步</string>
+    <string name="dialog_button_ok_text">OK</string>
+    <string name="dialog_title_api_error">API Error</string>
+    <string name="dialog_title_text_normal_error">Error</string>
+    <string name="search_option_all">全部</string>
+    <string name="dialog_title_text_log">Log</string>
+    <string name="retry">重試</string>
+</resources>

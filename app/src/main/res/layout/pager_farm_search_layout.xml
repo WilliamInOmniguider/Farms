@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/default_background_color"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/default_padding"
+        android:paddingRight="@dimen/default_padding">
+
+        <!--<com.omni.newtaipeifarm.view.OmniEditText-->
+            <!--android:id="@+id/pager_farm_search_layout_oet_search"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:background="@drawable/round_background_white"-->
+            <!--android:drawableStart="@android:drawable/ic_menu_search"-->
+            <!--android:gravity="center"-->
+            <!--android:hint="@string/search"-->
+            <!--android:paddingBottom="5dp"-->
+            <!--android:paddingTop="5dp"-->
+            <!--android:textSize="17sp" />-->
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginBottom="10dp"-->
+            <!--android:layout_marginTop="10dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="or" />-->
+
+        <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content">-->
+
+        <TextView
+            android:id="@+id/pager_farm_search_layout_tv_venue_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_background_deep_dark_gray"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:padding="8dp"
+            android:text="@string/venue_search"
+            android:textColor="@android:color/white"
+            android:textSize="17sp" />
+
+        <!--<Spinner-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:background="@android:color/transparent" />-->
+        <!--</RelativeLayout>-->
+
+        <TextView
+            android:id="@+id/pager_farm_search_layout_tv_category_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_background_deep_dark_gray"
+            android:drawableRight="@android:drawable/arrow_down_float"
+            android:padding="8dp"
+            android:text="@string/category_search"
+            android:textColor="@android:color/white"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/pager_farm_search_layout_tv_search_range"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:textColor="@color/gray_8a"
+            tools:text="@string/search_range" />
+
+        <android.support.v7.widget.AppCompatSeekBar
+            android:id="@+id/pager_farm_search_layout_acsb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="3dp"
+            android:minHeight="3dp"
+            android:progress="50"
+            android:progressDrawable="@drawable/seekbar_progress"
+            android:thumbTint="@android:color/white" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/pager_farm_search_layout_tv_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/round_background_farm_green"
+            android:gravity="center"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"
+            android:text="@string/search" />
+    </LinearLayout>
+</ScrollView>

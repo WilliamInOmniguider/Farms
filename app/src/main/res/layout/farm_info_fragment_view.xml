@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:omni="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_background_color"
+    android:clickable="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/farm_info_fragment_view_ctl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            omni:contentScrim="?attr/colorPrimary"
+            omni:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/farm_info_fragment_view_niv_toolbar_photo"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/test_farm_pic"
+                omni:layout_collapseMode="parallax"
+                omni:layout_collapseParallaxMultiplier="0.7" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/farm_info_fragment_view_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                omni:layout_collapseMode="pin"
+                omni:layout_scrollFlags="scroll|enterAlways">
+
+                <TextView
+                    android:id="@+id/farm_info_fragment_view_tv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/ic_arrow_back_white"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white" />
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        omni:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <!-- omni:layout_behavior="com.omni.newtaipeifarm.behavior.FixedScrollingViewBehavior" -->
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/default_padding"
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingRight="@dimen/default_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/farm_info_fragment_view_iv_360"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/icon_360" />
+
+                <ImageView
+                    android:id="@+id/farm_info_fragment_view_iv_ar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/icon_ar" />
+
+                <ImageView
+                    android:id="@+id/farm_info_fragment_view_iv_shop"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/icon_shopping" />
+
+                <ImageView
+                    android:id="@+id/farm_info_fragment_view_iv_star"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/icon_star" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/default_padding"
+                android:background="@color/farm_green" />
+
+            <com.omni.newtaipeifarm.view.OmniIconItem
+                android:id="@+id/farm_info_fragment_view_oii_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                omni:icon_src="@drawable/icon_phone"
+                omni:icon_title_text_auto_link="phone" />
+
+            <com.omni.newtaipeifarm.view.OmniIconItem
+                android:id="@+id/farm_info_fragment_view_oii_website"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                omni:icon_src="@drawable/icon_website"
+                omni:icon_title_text_auto_link="webURL" />
+
+            <com.omni.newtaipeifarm.view.OmniIconItem
+                android:id="@+id/farm_info_fragment_view_oii_place"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                omni:icon_src="@drawable/icon_place" />
+
+            <com.omni.newtaipeifarm.view.OmniIconItem
+                android:id="@+id/farm_info_fragment_view_oii_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                omni:icon_src="@drawable/icon_time" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/default_padding"
+                android:background="@color/farm_green" />
+
+            <TextView
+                android:id="@+id/farm_info_fragment_view_tv_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textSize="18sp" />
+
+            <!-- Without these two views, text will not display completely !!!  -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="      " />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="      " />
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
