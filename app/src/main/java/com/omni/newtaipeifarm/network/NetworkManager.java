@@ -208,8 +208,10 @@ public class NetworkManager {
                         } else {
                             if (error.getClass().equals(TimeoutError.class)) {
                                 Log.e("@W@", "*** Error NetworkResponse Timeout, timeMs : " + error.getNetworkTimeMs());
+                                error = new VolleyError("Call API timeout");
                             }
                         }
+
                         listener.onFail(error, (TextUtils.isEmpty(error.getMessage()) && error.getCause() == null && error.networkResponse == null));
 
                         DialogTools.getInstance().dismissProgress(context);

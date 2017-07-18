@@ -28,7 +28,8 @@
         android:paddingRight="30dp"
         android:paddingTop="6dp"
         android:text="@string/retry"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/white"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/pager_farm_list_layout_tv_error_message"

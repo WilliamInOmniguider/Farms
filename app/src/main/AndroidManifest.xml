@@ -44,8 +44,7 @@
             android:value="@string/indoor_atlas_api_secret" />
 
         <activity
-            android:name=".MainActivity"
-            android:label="Main">
+            android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

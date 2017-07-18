@@ -4,6 +4,6 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:paddingBottom="5dp"
-    android:paddingLeft="50dp"
-    android:paddingRight="50dp"
+    android:paddingLeft="40dp"
+    android:paddingRight="40dp"
     android:paddingTop="5dp" />
