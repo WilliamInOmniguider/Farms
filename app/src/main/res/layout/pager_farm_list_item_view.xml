@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@id/pager_farm_list_item_view_tv_more"
         android:orientation="horizontal">
 
         <FrameLayout

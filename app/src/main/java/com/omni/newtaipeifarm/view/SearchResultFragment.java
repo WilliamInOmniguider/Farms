@@ -31,11 +31,12 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PointOfInterest;
 import com.google.maps.android.SphericalUtil;
 import com.omni.newtaipeifarm.DataCacheManager;
-import com.omni.newtaipeifarm.FarmContentPagerAdapter;
 import com.omni.newtaipeifarm.R;
 import com.omni.newtaipeifarm.adapter.SearchFarmResultAdapter;
+import com.omni.newtaipeifarm.model.NavigationMode;
 import com.omni.newtaipeifarm.model.OmniEvent;
 import com.omni.newtaipeifarm.model.SearchFarmResult;
+import com.omni.newtaipeifarm.tool.FarmText;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -53,17 +54,6 @@ public class SearchResultFragment extends Fragment implements OnMapReadyCallback
     public static final String TAG = "tag_search_result_fragment";
     private static final String S_KEY_SEARCH_FARM_RESULT = "s_key_search_farm_result";
     private static final String S_KEY_USER_LOCATION = "s_key_user_location";
-
-    private final int MAP_ZOOM_LEVEL = 20;
-    private final int MARKER_Z_INDEX = 150;
-    private final float POLYLINE_WIDTH = 50.0f;
-    private final int POLYLINE_Z_INDEX = 100;
-
-    class NavigationMode {
-        static final int USER_IN_NAVIGATION = 0;
-        static final int WATCH_OTHER_PLACE = 1;
-        static final int NOT_NAVIGATION = 2;
-    }
 
     private int mNavigationMode = NavigationMode.NOT_NAVIGATION;
 
@@ -240,13 +230,33 @@ public class SearchResultFragment extends Fragment implements OnMapReadyCallback
             return;
         }
 
+        int iconResId;
+        switch (result.getCatecoryEN()) {
+            case FarmText.FARM_TYPE_LARGE:
+                iconResId = R.mipmap.icon_fram_l;
+                break;
+
+            case FarmText.FARM_TYPE_MEDIUM:
+                iconResId = R.mipmap.icon_fram_m;
+                break;
+
+            case FarmText.FARM_TYPE_LITTLE:
+                iconResId = R.mipmap.icon_fram_s;
+                break;
+
+            default:
+                iconResId = R.mipmap.icon_fram_s;
+                break;
+        }
+
         mMap.addMarker(new MarkerOptions()
                 .flat(false)
                 .anchor(0.5f, 0.5f)
                 .position(new LatLng(Double.valueOf(result.getLat()),
                         Double.valueOf(result.getLng())))
+                .icon(BitmapDescriptorFactory.fromResource(iconResId))
                 .title(result.getName())
-                .zIndex(MARKER_Z_INDEX));
+                .zIndex(FarmText.MARKER_Z_INDEX));
     }
 
     private void addUserMarker(LatLng position, Location location) {
@@ -265,7 +275,7 @@ public class SearchResultFragment extends Fragment implements OnMapReadyCallback
                     .icon(BitmapDescriptorFactory.fromResource(R.mipmap.location))
                     .anchor(0.5f, 0.5f)
                     .position(position)
-                    .zIndex(MARKER_Z_INDEX));
+                    .zIndex(FarmText.MARKER_Z_INDEX));
 
             mUserAccuracyCircle = mMap.addCircle(new CircleOptions()
                     .center(position)
@@ -273,7 +283,7 @@ public class SearchResultFragment extends Fragment implements OnMapReadyCallback
 //                    .fillColor(R.color.blue)
 //                    .strokeColor(R.color.blue)
                     .strokeWidth(10)
-                    .zIndex(MARKER_Z_INDEX));
+                    .zIndex(FarmText.MARKER_Z_INDEX));
         } else {
             mUserMarker.setPosition(position);
             mUserMarker.setRotation(location.getBearing());
@@ -375,7 +385,7 @@ public class SearchResultFragment extends Fragment implements OnMapReadyCallback
 
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(pointOnRoute)
-                    .zoom(MAP_ZOOM_LEVEL)
+                    .zoom(FarmText.MAP_ZOOM_LEVEL)
                     .bearing((float) heading)
                     .tilt(20)
                     .build();

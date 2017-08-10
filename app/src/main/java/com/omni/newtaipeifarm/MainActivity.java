@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -73,6 +74,16 @@ public class MainActivity extends AppCompatActivity implements IARegion.Listener
     private boolean mIsIndoor = false;
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.e("@W@", "MainActivity onSaveInstanceState : ");
+        for (String key : outState.keySet()) {
+            Log.e("@W@", "key : " + key + ", value : " + outState.get(key));
+        }
+        Log.e("@W@", "#");
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity_view);
@@ -95,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements IARegion.Listener
         mTabLayout.setupWithViewPager(mViewPager, true);
 
         mFarmContentVP = (ViewPager) findViewById(R.id.main_activity_view_vp_farm_content);
-        mFarmContentVP.setAdapter(new FarmContentPagerAdapter(this, new FarmContentPagerAdapter.FarmContentPagerAdapterListener() {
+        mFarmContentVP.setAdapter(new FarmContentPagerAdapter(getSupportFragmentManager(), this, new FarmContentPagerAdapter.FarmContentPagerAdapterListener() {
             @Override
             public void onClickFarmList(Farm farm) {
                 MainActivity.this.getSupportFragmentManager().beginTransaction()
@@ -126,6 +137,19 @@ public class MainActivity extends AppCompatActivity implements IARegion.Listener
                                 DialogTools.getInstance().showErrorMessage(MainActivity.this, R.string.dialog_title_api_error, error.getMessage());
                             }
                         });
+            }
+
+            @Override
+            public void onPOIItemClick(SearchFarmResult result) {
+                Log.e("@W@", "onPOIItemClick");
+                MainActivity.this.getSupportFragmentManager().beginTransaction()
+                        .add(R.id.main_activity_view_fl, FarmInfoFragment.newInstance(result.toFarm()), FarmInfoFragment.TAG).addToBackStack(null).commit();
+            }
+
+            @Override
+            public void onPOIItemMoreClick(SearchFarmResult result) {
+                MainActivity.this.getSupportFragmentManager().beginTransaction()
+                        .add(R.id.main_activity_view_fl, FarmInfoFragment.newInstance(result.toFarm()), FarmInfoFragment.TAG).addToBackStack(null).commit();
             }
         }));
 
@@ -220,7 +244,7 @@ public class MainActivity extends AppCompatActivity implements IARegion.Listener
         } else {
             getLocationFromGoogle();
 
-//            requestIndoorPosition();
+            requestIndoorPosition();
         }
     }
 
@@ -278,7 +302,7 @@ public class MainActivity extends AppCompatActivity implements IARegion.Listener
 //                    LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
                     getLocationFromGoogle();
 
-//                    requestIndoorPosition();
+                    requestIndoorPosition();
                 }
             } else {
                 Log.e("@W@", "request permission result FINE_LOCATION deny");

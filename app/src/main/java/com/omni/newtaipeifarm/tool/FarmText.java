@@ -9,4 +9,13 @@ public class FarmText {
     public static final int REQUEST_COARSE_LOCATION = 9;
     public static final int REQUEST_FINE_LOCATION = 10;
     public static final int REQUEST_CAMERA = 11;
+
+    public static final int MAP_ZOOM_LEVEL = 20;
+    public static final int MARKER_Z_INDEX = 150;
+    public static final float POLYLINE_WIDTH = 50.0f;
+    public static final int POLYLINE_Z_INDEX = 100;
+
+    public static final String FARM_TYPE_LARGE = "large farm";
+    public static final String FARM_TYPE_MEDIUM = "medium farm";
+    public static final String FARM_TYPE_LITTLE = "little farm";
 }
