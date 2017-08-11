@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NewTaipeiFarm</string>
+    <string name="app_name">新北農場憩淘趣</string>
     <string name="title_activity_maps">Map</string>
 
     <string name="farm_content_pager_title_map">地圖</string>
