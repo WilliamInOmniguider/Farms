@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:omni="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_background_color"
+    android:clickable="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/old_farm_info_fragment_view_ctl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            omni:contentScrim="?attr/colorPrimary"
+            omni:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <com.android.volley.toolbox.NetworkImageView
+                android:id="@+id/old_farm_info_fragment_view_niv_toolbar_photo"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/test_farm_pic"
+                omni:layout_collapseMode="parallax"
+                omni:layout_collapseParallaxMultiplier="0.7" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/old_farm_info_fragment_view_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/actionBarSize"
+                omni:layout_collapseMode="pin"
+                omni:layout_scrollFlags="scroll|enterAlways">
+
+                <TextView
+                    android:id="@+id/old_farm_info_fragment_view_tv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@mipmap/ic_arrow_back_white"
+                    android:drawablePadding="5dp"
+                    android:gravity="center"
+                    android:textColor="@android:color/white" />
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        omni:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <!-- omni:layout_behavior="com.omni.newtaipeifarm.behavior.FixedScrollingViewBehavior" -->
+
+        <!--<android.support.v7.widget.LinearLayoutCompat-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical"-->
+        <!--android:paddingBottom="@dimen/default_padding"-->
+        <!--android:paddingLeft="@dimen/default_padding"-->
+        <!--android:paddingRight="@dimen/default_padding">-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill_vertical"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/default_padding"
+            android:paddingLeft="@dimen/default_padding"
+            android:paddingRight="@dimen/default_padding">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_padding"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/old_farm_info_fragment_view_ll_vr"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/button_vr" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="@string/info_view_btn_title_vr"
+                        android:textColor="@color/colorPrimary" />
+
+                </LinearLayout>
+
+                <!--<LinearLayout-->
+                <!--android:id="@+id/farm_info_fragment_view_ll_3d"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_weight="1"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:src="@mipmap/button_3_d" />-->
+
+                <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="5dp"-->
+                <!--android:gravity="center"-->
+                <!--android:text="@string/info_view_btn_title_3d"-->
+                <!--android:textColor="@color/colorPrimary" />-->
+
+                <!--</LinearLayout>-->
+
+                <LinearLayout
+                    android:id="@+id/old_farm_info_fragment_view_ll_shop"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/button_shop" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="@string/info_view_btn_title_shop"
+                        android:textColor="@color/colorPrimary" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/old_farm_info_fragment_view_ll_line"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/button_line" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="@string/info_view_btn_title_line"
+                        android:textColor="@color/colorPrimary" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/old_farm_info_fragment_view_ll_website"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/icon_web" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="@string/info_view_btn_title_website"
+                        android:textColor="@color/colorPrimary" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:layout_marginTop="@dimen/default_padding"
+                android:background="@color/farm_color" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:paddingBottom="10dp"
+                android:paddingLeft="@dimen/default_padding"
+                android:paddingRight="@dimen/default_padding"
+                android:paddingTop="10dp">
+
+                <RelativeLayout
+                    android:id="@+id/old_farm_info_fragment_view_rl_likes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true">
+
+                    <TextView
+                        android:id="@+id/old_farm_info_fragment_view_tv_popular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="人氣：10" />
+
+                    <TextView
+                        android:id="@+id/old_farm_info_fragment_view_tv_like"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/round_background_red"
+                        android:drawableLeft="@drawable/icon_heart"
+                        android:drawablePadding="5dp"
+                        android:paddingBottom="3dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="3dp"
+                        android:text="@string/like"
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
+
+                <FrameLayout
+                    android:id="@+id/old_farm_info_fragment_view_fl_icon_fl"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="8dp">
+
+                    <com.android.volley.toolbox.NetworkImageView
+                        android:id="@+id/old_farm_info_fragment_view_niv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:src="@mipmap/farm_icon_1" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/round_iv_background" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/rectangle_iv_background" />
+
+                </FrameLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@id/old_farm_info_fragment_view_rl_likes"
+                    android:layout_toRightOf="@id/old_farm_info_fragment_view_fl_icon_fl"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/old_farm_info_fragment_view_tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        tools:text="內湖清香農場" />
+
+                    <TextView
+                        android:id="@+id/old_farm_info_fragment_view_tv_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/gray_8a"
+                        android:textSize="10sp"
+                        tools:text="A story of beauty and illusion" />
+
+                    <TextView
+                        android:id="@+id/old_farm_info_fragment_view_tv_mail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/gray_8a"
+                        android:textSize="10sp"
+                        tools:text="A story of beauty and illusion" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="@dimen/default_padding"
+                android:layout_marginTop="@dimen/default_padding"
+                android:background="@color/farm_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/default_background_color"
+                android:orientation="vertical">
+
+                <android.support.design.widget.TabLayout
+                    android:id="@+id/old_farm_info_fragment_view_tl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="5dp"
+                    omni:tabBackground="@drawable/tab_selector"
+                    omni:tabGravity="center"
+                    omni:tabIndicatorHeight="0dp"
+                    omni:tabPaddingEnd="0dp"
+                    omni:tabPaddingStart="0dp" />
+
+                <com.omni.newtaipeifarm.view.OmniViewPager
+                    android:id="@+id/old_farm_info_fragment_view_vp_farm_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="10dp"
+                    omni:slide_paging_enabled="false" />
+
+            </LinearLayout>
+
+            <!--<com.omni.newtaipeifarm.view.OmniIconItem-->
+            <!--android:id="@+id/farm_info_fragment_view_oii_phone"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/default_padding"-->
+            <!--omni:icon_src="@drawable/icon_phone"-->
+            <!--omni:icon_title_text_auto_link="phone" />-->
+
+            <!--<com.omni.newtaipeifarm.view.OmniIconItem-->
+            <!--android:id="@+id/farm_info_fragment_view_oii_website"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/default_padding"-->
+            <!--omni:icon_src="@drawable/icon_website"-->
+            <!--omni:icon_title_text_auto_link="webURL" />-->
+
+            <!--<com.omni.newtaipeifarm.view.OmniIconItem-->
+            <!--android:id="@+id/farm_info_fragment_view_oii_place"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/default_padding"-->
+            <!--omni:icon_src="@drawable/icon_place" />-->
+
+            <!--<com.omni.newtaipeifarm.view.OmniIconItem-->
+            <!--android:id="@+id/farm_info_fragment_view_oii_time"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/default_padding"-->
+            <!--omni:icon_src="@drawable/icon_time" />-->
+
+            <!--<View-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="1dp"-->
+            <!--android:layout_marginTop="@dimen/default_padding"-->
+            <!--android:background="@color/farm_color" />-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/farm_info_fragment_view_tv_info"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/default_padding"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:paddingRight="10dp"-->
+            <!--android:textSize="18sp" />-->
+
+            <!-- Without these two views, text will not display completely !!!  -->
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="12dp"-->
+                <!--android:paddingLeft="10dp"-->
+                <!--android:paddingRight="10dp"-->
+                <!--android:text="      " />-->
+
+            <!--<TextView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="12dp"-->
+                <!--android:paddingLeft="10dp"-->
+                <!--android:paddingRight="10dp"-->
+                <!--android:text="      " />-->
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

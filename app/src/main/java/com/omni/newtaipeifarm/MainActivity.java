@@ -9,7 +9,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -43,7 +42,7 @@ import com.omni.newtaipeifarm.network.NetworkManager;
 import com.omni.newtaipeifarm.tool.DialogTools;
 import com.omni.newtaipeifarm.tool.FarmText;
 import com.omni.newtaipeifarm.view.FarmInfoFragment;
-import com.omni.newtaipeifarm.view.SearchResultFragment;
+import com.omni.newtaipeifarm.view.SearchResultMapFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -120,14 +119,14 @@ public class MainActivity extends AppCompatActivity implements IARegion.Listener
             }
 
             @Override
-            public void onClickSearch(String selectedAreaId, String selectedCategoryId, int searchRange) {
+            public void onClickSearch(String selectedAreaId, String selectedCategoryId, int searchRange, String keywords) {
 
-                FarmApi.getInstance().searchFarms(MainActivity.this, selectedCategoryId, mLastLocation.getLatitude(), mLastLocation.getLongitude(), searchRange, selectedAreaId,
+                FarmApi.getInstance().searchFarms(MainActivity.this, selectedCategoryId, mLastLocation.getLatitude(), mLastLocation.getLongitude(), searchRange, selectedAreaId, "",
                         new NetworkManager.NetworkManagerListener<SearchFarmResult[]>() {
                             @Override
                             public void onSucceed(SearchFarmResult[] results) {
                                 MainActivity.this.getSupportFragmentManager().beginTransaction()
-                                        .add(R.id.main_activity_view_fl, SearchResultFragment.newInstance(results, mLastLocation), SearchResultFragment.TAG)
+                                        .add(R.id.main_activity_view_fl, SearchResultMapFragment.newInstance(results, mLastLocation), SearchResultMapFragment.TAG)
                                         .addToBackStack(null)
                                         .commit();
                             }
@@ -192,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements IARegion.Listener
                 (TextView) inflater.inflate(R.layout.pager_farm_content_tab_view, null, false) :
                 (TextView) tab.getCustomView();
 
-        tv.setTextColor(ContextCompat.getColor(this, isSelected ? android.R.color.white : R.color.farm_green));
+        tv.setTextColor(ContextCompat.getColor(this, isSelected ? android.R.color.white : R.color.farm_color));
         tv.setText(tab.getText());
 
         if (tab.getPosition() == mFarmContentTL.getTabCount() - 1) {
@@ -216,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements IARegion.Listener
         } else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
             dialog.setMessage("位置服務尚未開啟，請設定");
-            dialog.setPositiveButton("open settings", new DialogInterface.OnClickListener() {
+            dialog.setPositiveButton(R.string.open_settings, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                     // TODO Auto-generated method stub
@@ -224,14 +223,14 @@ public class MainActivity extends AppCompatActivity implements IARegion.Listener
                     startActivity(myIntent);
                 }
             });
-            dialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            dialog.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
 
                 @Override
                 public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                     // TODO Auto-generated method stub
                     DialogTools.getInstance().showErrorMessage(MainActivity.this,
                             getString(R.string.dialog_title_text_normal_error),
-                            "沒有開啟位置服務，你要的地圖定位我給不起");
+                            getString(R.string.not_open_location_setting_message));
                 }
             });
             dialog.show();

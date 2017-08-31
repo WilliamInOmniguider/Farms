@@ -74,7 +74,10 @@ public class DialogTools {
 
     public void showNoNetworkMessage(Context context) {
         if (mNoNetworkDialog == null) {
-            mNoNetworkDialog = createAlertDialog(context, "No network connection", "Checking internet connection", -1,
+            mNoNetworkDialog = createAlertDialog(context,
+                    context.getString(R.string.dialog_title_no_network_connection),
+                    context.getString(R.string.no_network_connection_message),
+                    -1,
                     context.getResources().getString(R.string.dialog_button_ok_text), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {

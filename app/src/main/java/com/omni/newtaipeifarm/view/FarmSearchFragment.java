@@ -35,7 +35,7 @@ import com.omni.newtaipeifarm.tool.DialogTools;
 public class FarmSearchFragment extends Fragment {
 
     public interface FarmSearchListener {
-        void onClickSearch(String areaId, String categoryId, int range);
+        void onClickSearch(String areaId, String categoryId, int range, String keywords);
     }
 
     private static FarmSearchListener mListener = null;
@@ -177,7 +177,8 @@ public class FarmSearchFragment extends Fragment {
                     String selectedCategoryId = mSelectedFarmCategory == null ? FarmCategory.ALL_CATEGORY_ID : mSelectedFarmCategory.getId();
 
                     if (mListener != null) {
-                        mListener.onClickSearch(selectedAreaId, selectedCategoryId, seekBar.getProgress());
+//                        mListener.onClickSearch(selectedAreaId, selectedCategoryId, seekBar.getProgress(), "");
+                        mListener.onClickSearch(selectedAreaId, selectedCategoryId, 0, "");
                     }
                 }
             });

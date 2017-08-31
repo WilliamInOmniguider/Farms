@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:omni="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="vertical">
+
+        <com.omni.newtaipeifarm.view.OmniIconItem
+            android:id="@+id/farm_contact_info_fragment_view_oii_owner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_padding"
+            omni:icon_src="@drawable/icon_people_bw"
+            omni:icon_title_text_auto_link="phone" />
+
+        <com.omni.newtaipeifarm.view.OmniIconItem
+            android:id="@+id/farm_contact_info_fragment_view_oii_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_padding"
+            omni:icon_src="@drawable/icon_place"
+            omni:icon_title_text_auto_link="webURL" />
+
+        <com.omni.newtaipeifarm.view.OmniIconItem
+            android:id="@+id/farm_contact_info_fragment_view_oii_open_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_padding"
+            omni:icon_src="@drawable/icon_time" />
+
+        <com.omni.newtaipeifarm.view.OmniIconItem
+            android:id="@+id/farm_contact_info_fragment_view_oii_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_padding"
+            omni:icon_src="@drawable/icon_star_bw" />
+
+    </LinearLayout>
+</ScrollView>

@@ -18,9 +18,9 @@
     <application
         android:name=".FarmApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/farm_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/farm_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
@@ -44,8 +44,7 @@
             android:name="com.indooratlas.android.sdk.API_SECRET"
             android:value="@string/indoor_atlas_api_secret" />
 
-        <activity
-            android:name=".MainActivity">
+        <activity android:name=".MainTabActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -54,12 +53,21 @@
         </activity>
 
         <activity
+            android:name=".MainActivity">
+            <intent-filter>
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".WebViewActivity"
             android:label="Web"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainTabActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".MainTabActivity" />
 
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -71,7 +79,7 @@
             android:name=".ARActivity"
             android:configChanges="mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale"
             android:launchMode="singleTask"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainTabActivity">
 
             <meta-data
                 android:name="unityplayer.UnityActivity"

@@ -1,16 +1,14 @@
 package com.omni.newtaipeifarm;
 
 import android.content.Context;
-import android.os.Parcel;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.omni.newtaipeifarm.model.Farm;
 import com.omni.newtaipeifarm.model.SearchFarmResult;
+import com.omni.newtaipeifarm.view.FarmFoodFragment;
 import com.omni.newtaipeifarm.view.FarmListFragment;
-import com.omni.newtaipeifarm.view.FarmMapFragment;
-import com.omni.newtaipeifarm.view.FarmSearchFragment;
 
 /**
  * Created by wiliiamwang on 28/06/2017.
@@ -20,9 +18,13 @@ public class FarmContentPagerAdapter extends FragmentPagerAdapter {
 
     public interface FarmContentPagerAdapterListener {
         void onClickFarmList(Farm farm);
+
         void onClickMore(Farm farm);
-        void onClickSearch(String selectedAreaId, String selectedCategoryId, int searchRange);
+
+        void onClickSearch(String selectedAreaId, String selectedCategoryId, int searchRange, String keywords);
+
         void onPOIItemClick(SearchFarmResult result);
+
         void onPOIItemMoreClick(SearchFarmResult result);
     }
 
@@ -43,20 +45,46 @@ public class FarmContentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        if (position == FarmContentPagerModule.MAP.ordinal()) {
+//        if (position == FarmContentPagerModule.MAP.ordinal()) {
+//
+//            return FarmMapFragment.newInstance(new FarmMapFragment.FarmMapListener() {
+//                @Override
+//                public void onPOIItemClick(SearchFarmResult result) {
+//                    mListener.onPOIItemClick(result);
+//                    Log.e("@W@", "  ");
+//                }
+//
+//                @Override
+//                public void onPOIItemMoreClick(SearchFarmResult result) {
+//                    mListener.onPOIItemMoreClick(result);
+//                }
+//            });
+//        } else if (position == FarmContentPagerModule.LIST.ordinal()) {
+//
+//            return FarmListFragment.newInstance(new FarmListFragment.FarmListListener() {
+//                @Override
+//                public void onFarmsItemClick(Farm farm) {
+//                    mListener.onClickFarmList(farm);
+//                }
+//
+//                @Override
+//                public void onItemMoreClick(Farm farm) {
+//                    mListener.onClickMore(farm);
+//                }
+//            });
+//        } else if (position == FarmContentPagerModule.SEARCH.ordinal()) {
+//
+//            return FarmSearchFragment.newInstance(new FarmSearchFragment.FarmSearchListener() {
+//                @Override
+//                public void onClickSearch(String areaId, String categoryId, int range, String keywords) {
+//                    mListener.onClickSearch(areaId, categoryId, range, keywords);
+//                }
+//            });
+//        } else {
+//            return null;
+//        }
 
-            return FarmMapFragment.newInstance(new FarmMapFragment.FarmMapListener() {
-                @Override
-                public void onPOIItemClick(SearchFarmResult result) {
-                    mListener.onPOIItemClick(result);
-                }
-
-                @Override
-                public void onPOIItemMoreClick(SearchFarmResult result) {
-                    mListener.onPOIItemMoreClick(result);
-                }
-            });
-        } else if (position == FarmContentPagerModule.LIST.ordinal()) {
+        if (position == FarmContentPagerModule.LIST.ordinal()) {
 
             return FarmListFragment.newInstance(new FarmListFragment.FarmListListener() {
                 @Override
@@ -69,14 +97,9 @@ public class FarmContentPagerAdapter extends FragmentPagerAdapter {
                     mListener.onClickMore(farm);
                 }
             });
-        } else if (position == FarmContentPagerModule.SEARCH.ordinal()) {
+        } else if (position == FarmContentPagerModule.FIND_FOOD.ordinal()) {
 
-            return FarmSearchFragment.newInstance(new FarmSearchFragment.FarmSearchListener() {
-                @Override
-                public void onClickSearch(String areaId, String categoryId, int range) {
-                    mListener.onClickSearch(areaId, categoryId, range);
-                }
-            });
+            return FarmFoodFragment.newInstance();
         } else {
             return null;
         }

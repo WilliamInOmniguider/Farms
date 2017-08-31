@@ -22,6 +22,10 @@ public class Farm implements Serializable {
     private String catecoryEN;
     @SerializedName("s_intro")
     private String intro;
+    @SerializedName("c_id")
+    private String cityId;
+    @SerializedName("a_id")
+    private String areaId;
     @SerializedName("s_address")
     private String address;
     @SerializedName("s_lat")
@@ -46,6 +50,22 @@ public class Farm implements Serializable {
     private String logo;
     @SerializedName("banner")
     private String banner;
+    @SerializedName("category_id")
+    private String categoryId;
+    @SerializedName("event")
+    private String event;
+    @SerializedName("email")
+    private String email;
+    @SerializedName("owner_name")
+    private String ownerName;
+    @SerializedName("popular")
+    private String popular;
+    @SerializedName("last_update")
+    private String lastUpdate;
+    @SerializedName("favorite")
+    private String favorite;
+    @SerializedName("ec_url")
+    private String ecURL;
 
     public String getSid() {
         return sid;
@@ -191,6 +211,86 @@ public class Farm implements Serializable {
         this.banner = banner;
     }
 
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
+    }
+
+    public String getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(String areaId) {
+        this.areaId = areaId;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getEvent() {
+        return event;
+    }
+
+    public void setEvent(String event) {
+        this.event = event;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public String getPopular() {
+        return popular;
+    }
+
+    public void setPopular(String popular) {
+        this.popular = popular;
+    }
+
+    public String getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(String lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(String favorite) {
+        this.favorite = favorite;
+    }
+
+    public String getEcURL() {
+        return ecURL;
+    }
+
+    public void setEcURL(String ecURL) {
+        this.ecURL = ecURL;
+    }
+
     public static class Builder {
 
         private Farm mFarm;
@@ -288,6 +388,56 @@ public class Farm implements Serializable {
 
         public Builder setBanner(String banner) {
             mFarm.setBanner(banner);
+            return this;
+        }
+
+        public Builder setCityId(String cityId) {
+            mFarm.setCityId(cityId);
+            return this;
+        }
+
+        public Builder setAreaId(String areaId) {
+            mFarm.setAreaId(areaId);
+            return this;
+        }
+
+        public Builder setCategoryId(String categoryId) {
+            mFarm.setCategoryId(categoryId);
+            return this;
+        }
+
+        public Builder setEvent(String event) {
+            mFarm.setEvent(event);
+            return this;
+        }
+
+        public Builder setEmail(String email) {
+            mFarm.setEmail(email);
+            return this;
+        }
+
+        public Builder setOwnerName(String ownerName) {
+            mFarm.setOwnerName(ownerName);
+            return this;
+        }
+
+        public Builder setPopular(String popular) {
+            mFarm.setPopular(popular);
+            return this;
+        }
+
+        public Builder setLastUpdate(String lastUpdate) {
+            mFarm.setLastUpdate(lastUpdate);
+            return this;
+        }
+
+        public Builder setFavorite(String favorite) {
+            mFarm.setFavorite(favorite);
+            return this;
+        }
+
+        public Builder setEcURL(String ecURL) {
+            mFarm.setEcURL(ecURL);
             return this;
         }
 

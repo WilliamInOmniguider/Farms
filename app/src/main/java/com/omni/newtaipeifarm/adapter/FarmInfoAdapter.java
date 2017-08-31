@@ -2,6 +2,7 @@ package com.omni.newtaipeifarm.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class FarmInfoAdapter extends RecyclerView.Adapter<FarmInfoAdapter.ViewHo
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.e("@W@", "*** FarmInfoAdapter click");
                 if (mListener != null) {
                     mListener.onClickItem(v, position);
                 }

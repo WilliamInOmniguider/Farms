@@ -18,4 +18,10 @@ public class FarmText {
     public static final String FARM_TYPE_LARGE = "large farm";
     public static final String FARM_TYPE_MEDIUM = "medium farm";
     public static final String FARM_TYPE_LITTLE = "little farm";
+
+    public static final String TAB_NAME_HOME = "tab_name_home";
+    public static final String TAB_NAME_POPULARITY = "tab_name_popularity";
+    public static final String TAB_NAME_SEARCH = "tab_name_search";
+    public static final String TAB_NAME_SHOP = "tab_name_shop";
+    public static final String TAB_NAME_INDEX = "tab_name_index";
 }

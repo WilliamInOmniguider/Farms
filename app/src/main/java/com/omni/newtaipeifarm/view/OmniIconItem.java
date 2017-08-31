@@ -3,8 +3,6 @@ package com.omni.newtaipeifarm.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
-import android.text.util.Linkify;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,7 +44,7 @@ public class OmniIconItem extends RelativeLayout {
         mTitleTV.setText(titleText);
 //        mTitleTV.setTextSize(titleTextSize / getResources().getDisplayMetrics().density);
         mTitleTV.setTextColor(titleTextColor);
-        mTitleTV.setLinkTextColor(ContextCompat.getColor(context, R.color.farm_green));
+        mTitleTV.setLinkTextColor(ContextCompat.getColor(context, R.color.farm_color));
         if (autoLink != -1) {
             mTitleTV.setAutoLinkMask(autoLink);
         }

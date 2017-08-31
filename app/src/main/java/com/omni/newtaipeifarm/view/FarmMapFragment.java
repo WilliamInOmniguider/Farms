@@ -122,6 +122,7 @@ public class FarmMapFragment extends Fragment implements OnMapReadyCallback, Goo
                 userLocation.getLongitude(),
                 50,
                 Area.ALL_AREA_ID,
+                "",
                 new NetworkManager.NetworkManagerListener<SearchFarmResult[]>() {
                     @Override
                     public void onSucceed(SearchFarmResult[] results) {

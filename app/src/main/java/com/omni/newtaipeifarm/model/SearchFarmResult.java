@@ -53,6 +53,22 @@ public class SearchFarmResult implements Serializable {
     private String banner;
     @SerializedName("distance")
     private double distance;
+    @SerializedName("category_id")
+    private String categoryId;
+    @SerializedName("event")
+    private String event;
+    @SerializedName("email")
+    private String email;
+    @SerializedName("owner_name")
+    private String ownerName;
+    @SerializedName("popular")
+    private String popular;
+    @SerializedName("last_update")
+    private String lastUpdate;
+    @SerializedName("favorite")
+    private String favorite;
+    @SerializedName("ec_url")
+    private String ecURL;
 
     private LatLng position;
     private Farm farm;
@@ -225,6 +241,70 @@ public class SearchFarmResult implements Serializable {
         this.distance = distance;
     }
 
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getEvent() {
+        return event;
+    }
+
+    public void setEvent(String event) {
+        this.event = event;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public String getPopular() {
+        return popular;
+    }
+
+    public void setPopular(String popular) {
+        this.popular = popular;
+    }
+
+    public String getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(String lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public String getFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(String favorite) {
+        this.favorite = favorite;
+    }
+
+    public String getEcURL() {
+        return ecURL;
+    }
+
+    public void setEcURL(String ecURL) {
+        this.ecURL = ecURL;
+    }
+
     public Farm toFarm() {
         if (farm == null) {
             farm = new Farm.Builder().setSid(sid)
@@ -233,6 +313,8 @@ public class SearchFarmResult implements Serializable {
                     .setCategory(catecory)
                     .setCategoryEN(catecoryEN)
                     .setIntro(intro)
+                    .setCityId(cityId)
+                    .setAreaId(areaId)
                     .setAddress(address)
                     .setLat(lat)
                     .setLng(lng)
@@ -245,6 +327,14 @@ public class SearchFarmResult implements Serializable {
                     .setIcon(icon)
                     .setLogo(logo)
                     .setBanner(banner)
+                    .setCategoryId(categoryId)
+                    .setEvent(event)
+                    .setEmail(email)
+                    .setPopular(popular)
+                    .setFavorite(favorite)
+                    .setLastUpdate(lastUpdate)
+                    .setOwnerName(ownerName)
+                    .setEcURL(ecURL)
                     .build();
         }
         return farm;

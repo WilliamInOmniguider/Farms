@@ -3,12 +3,20 @@
     <string name="title_activity_maps">Map</string>
 
     <string name="farm_content_pager_title_map">地圖</string>
-    <string name="farm_content_pager_title_list">列表</string>
+    <string name="farm_content_pager_title_list">找好農</string>
     <string name="farm_content_pager_title_search">搜尋</string>
+    <string name="farm_content_pager_title_find_food">選好食</string>
+    <string name="farm_info_pager_title_contact_info">聯 絡 資 訊</string>
+    <string name="farm_info_pager_title_farm_intro">農 場 簡 介</string>
+    <string name="open_settings">打開設定</string>
+    <string name="dialog_cancel">取消</string>
+    <string name="dialog_title_no_network_connection">無網路連線</string>
+    <string name="no_network_connection_message">無網路連線！請確認網路連線。</string>
+    <string name="not_open_location_setting_message">沒有開啟位置服務，無法顯示地圖</string>
     <string name="more">MORE</string>
-    <string name="search">Search</string>
-    <string name="venue_search">區域篩選</string>
-    <string name="category_search">類別篩選</string>
+    <string name="search">搜    尋</string>
+    <string name="venue_search">區&#160;&#160;&#160;域 ：</string>
+    <string name="category_search">農產品 ：</string>
     <string name="search_range">搜尋範圍 %1$d km</string>
     <string name="tool_bar_last_step">上一步</string>
     <string name="dialog_button_ok_text">OK</string>
@@ -18,4 +26,22 @@
     <string name="dialog_title_text_log">Log</string>
     <string name="retry">重試</string>
     <string name="re_get_farms">取得附近農場</string>
+    <string name="like">喜歡</string>
+    <string name="popular_sum">人氣：%1$s</string>
+
+    <string name="action_bar_title_home">首頁</string>
+    <string name="action_bar_title_popularity">人氣</string>
+    <string name="action_bar_title_search">搜尋</string>
+    <string name="action_bar_title_shop">商城</string>
+    <string name="action_bar_title_index">總覽</string>
+    <string name="action_bar_title_search_result">搜尋結果</string>
+
+    <string name="action_bar_text_back">上一步</string>
+
+    <string name="info_view_btn_title_vr">VR導覽</string>
+    <string name="info_view_btn_title_3d">3D</string>
+    <string name="info_view_btn_title_shop">商城</string>
+    <string name="info_view_btn_title_line">Line@</string>
+    <string name="info_view_btn_title_website">微官網</string>
+
 </resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@color/colorPrimary">
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/farm_action_bar_fl_home"-->
+        <!--android:layout_width="35dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:layout_gravity="right"-->
+        <!--android:layout_marginRight="@dimen/default_padding">-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/farm_action_bar_iv_home"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:src="@drawable/button_home" />-->
+    <!--</FrameLayout>-->
+
+    <TextView
+        android:id="@+id/farm_action_bar_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_size_action_bar"
+        tools:text="Title" />
+
+</android.support.v7.widget.Toolbar>

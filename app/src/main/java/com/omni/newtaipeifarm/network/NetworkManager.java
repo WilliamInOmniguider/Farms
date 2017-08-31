@@ -21,10 +21,13 @@ import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.omni.newtaipeifarm.R;
 import com.omni.newtaipeifarm.model.CommonResponse;
+import com.omni.newtaipeifarm.tool.AeSimpleSHA1;
 import com.omni.newtaipeifarm.tool.DialogTools;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 
 /**
@@ -40,6 +43,8 @@ public class NetworkManager {
     }
 
     public static final String NETWORKMANAGER_TAG = NetworkManager.class.getSimpleName();
+    public static final String DOMAIN_NAME = "http://loc.utobonus.com/";
+
     private final int DEFAULT_TIMEOUT = 30000;
 
     private static NetworkManager mNetworkManager;
@@ -144,28 +149,27 @@ public class NetworkManager {
         }
     }
 
-    public <T> void addJsonRequest(Context context,
-                                   int requestMethod,
-                                   final String url,
-                                   Map<String, String> params,
-                                   final Class<T[]> responseClass,
-                                   final NetworkManagerListener<T[]> listener) {
+    public <T> void addJsonRequestToCommonObj(Context context,
+                                              int requestMethod,
+                                              final String url,
+                                              Map<String, String> params,
+                                              final Class<T[]> responseClass,
+                                              final NetworkManagerListener<T[]> listener) {
 
-        addJsonRequest(context, requestMethod, url, params, responseClass, DEFAULT_TIMEOUT, listener);
+        addJsonRequestToCommonObj(context, requestMethod, url, params, responseClass, DEFAULT_TIMEOUT, listener);
     }
 
-    public <T> void addJsonRequest(final Context context,
-                                   int requestMethod,
-                                   final String url,
-                                   Map<String, String> params,
-                                   final Class<T[]> responseClass,
-                                   int timeoutMs,
-                                   final NetworkManagerListener<T[]> listener) {
+    public <T> void addJsonRequestToCommonObj(final Context context,
+                                              int requestMethod,
+                                              final String url,
+                                              Map<String, String> params,
+                                              final Class<T[]> responseClass,
+                                              int timeoutMs,
+                                              final NetworkManagerListener<T[]> listener) {
 
         if (!isNetworkAvailable(context)) {
             DialogTools.getInstance().dismissProgress(context);
-//            DialogTools.getInstance().showNoNetworkMessage(context);
-            listener.onFail(new VolleyError("No network connection!\nChecking internet connection please."), false);
+            listener.onFail(new VolleyError(context.getString(R.string.no_network_connection_message)), false);
             return;
         }
 
@@ -203,15 +207,91 @@ public class NetworkManager {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        if (error.networkResponse != null) {
-                            Log.e("@W@", "Error NetworkResponse statusCode === " + error.networkResponse.statusCode);
-                        } else {
-                            if (error.getClass().equals(TimeoutError.class)) {
-                                Log.e("@W@", "*** Error NetworkResponse Timeout, timeMs : " + error.getNetworkTimeMs());
-                                error = new VolleyError("Call API timeout");
-                            }
+                        if (error.networkResponse == null && error.getClass().equals(TimeoutError.class)) {
+                            Log.e("@W@", "*** Error NetworkResponse Timeout, timeMs : " + error.getNetworkTimeMs());
+                            error = new VolleyError("Call API timeout");
                         }
 
+                        listener.onFail(error, (TextUtils.isEmpty(error.getMessage()) && error.getCause() == null && error.networkResponse == null));
+
+                        DialogTools.getInstance().dismissProgress(context);
+                    }
+                }) {
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                return super.getParams();
+            }
+        };
+
+        request.setRetryPolicy(new DefaultRetryPolicy(
+                timeoutMs,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        addToRequestQueue(request, context.getClass().getSimpleName(), context);
+    }
+
+    public <T> void addJsonRequest(Context context,
+                                   int requestMethod,
+                                   final String url,
+                                   Map<String, String> params,
+                                   final Class<T> responseClass,
+                                   final NetworkManagerListener<T> listener) {
+
+        addJsonRequest(context, requestMethod, url, params, responseClass, DEFAULT_TIMEOUT, listener);
+    }
+
+    public <T> void addJsonRequest(final Context context,
+                                   int requestMethod,
+                                   final String url,
+                                   Map<String, String> params,
+                                   final Class<T> responseClass,
+                                   int timeoutMs,
+                                   final NetworkManagerListener<T> listener) {
+
+        if (!isNetworkAvailable(context)) {
+            DialogTools.getInstance().dismissProgress(context);
+            listener.onFail(new VolleyError(context.getString(R.string.no_network_connection_message)), false);
+            return;
+        }
+
+        String paramsString = "";
+        if (params != null) {
+            for (String key : params.keySet()) {
+                if (!TextUtils.isEmpty(paramsString)) {
+                    paramsString = paramsString + "&";
+                }
+                paramsString = paramsString + key + "=" + params.get(key);
+            }
+        }
+
+//        long currentTimestamp = System.currentTimeMillis();
+//        String mac = getMacStr(currentTimestamp);
+//        if (!TextUtils.isEmpty(paramsString)) {
+//            paramsString = paramsString + "&";
+//        }
+//        paramsString = paramsString + "timestamp=" + currentTimestamp + "&mac=" + mac;
+
+        final String requestUrl = (TextUtils.isEmpty(paramsString)) ? url : url + "?" + paramsString;
+        Log.e("@W@", "requestUrl : " + requestUrl);
+        JsonObjectRequest request = new JsonObjectRequest(requestMethod,
+                requestUrl,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        T object = getGson().fromJson(response.toString(), responseClass);
+                        listener.onSucceed(object);
+
+                        DialogTools.getInstance().dismissProgress(context);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        if (error.networkResponse == null && error.getClass().equals(TimeoutError.class)) {
+                            error = new VolleyError("Call API timeout");
+                        }
                         listener.onFail(error, (TextUtils.isEmpty(error.getMessage()) && error.getCause() == null && error.networkResponse == null));
 
                         DialogTools.getInstance().dismissProgress(context);
@@ -290,5 +370,17 @@ public class NetworkManager {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         addToRequestQueue(request, context.getClass().getSimpleName(), context);
+    }
+
+    private String getMacStr(long currentTimestamp) {
+        try {
+            return AeSimpleSHA1.SHA1("nmpapp://" + currentTimestamp);
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("@W@", "NoSuchAlgorithmException cause : " + e.getCause());
+            return "";
+        } catch (UnsupportedEncodingException e) {
+            Log.e("@W@", "UnsupportedEncodingException cause : " + e.getCause());
+            return "";
+        }
     }
 }

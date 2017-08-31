@@ -2,8 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="80dp"
     android:paddingBottom="10dp"
+    android:paddingLeft="@dimen/default_padding"
+    android:paddingRight="@dimen/default_padding"
     android:paddingTop="10dp">
 
     <TextView
@@ -18,96 +20,100 @@
         android:paddingRight="10dp"
         android:paddingTop="3dp"
         android:text="@string/more"
-        android:textColor="@android:color/white"
+        android:textColor="@color/farm_pager_title_color"
         android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/pager_farm_list_item_view_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@id/pager_farm_list_item_view_tv_more"/>-->
+
+    <FrameLayout
+        android:id="@+id/pager_farm_list_item_view_fl_icon_fl"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginRight="8dp">
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/pager_farm_list_item_view_niv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/farm_icon_1" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/round_iv_background" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/rectangle_iv_background" />
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_toLeftOf="@id/pager_farm_list_item_view_tv_more"
+        android:layout_toRightOf="@id/pager_farm_list_item_view_fl_icon_fl"
         android:orientation="horizontal">
 
-        <FrameLayout
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginRight="8dp">
-
-            <com.android.volley.toolbox.NetworkImageView
-                android:id="@+id/pager_farm_list_item_view_niv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/farm_icon_1" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/round_iv_background" />
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/rectangle_iv_background" />
-
-        </FrameLayout>
+        <TextView
+            android:id="@+id/pager_farm_list_item_view_tv_index"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            tools:text="1" />
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/pager_farm_list_item_view_tv_index"
+                android:id="@+id/pager_farm_list_item_view_tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/black"
-                android:textStyle="bold"
-                tools:text="1" />
+                tools:text="內湖清香農場" />
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/pager_farm_list_item_view_tv_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:orientation="vertical">
+                android:layout_marginTop="3dp"
+                android:textColor="@color/gray_8a"
+                android:textSize="10sp"
+                tools:text="A story of beauty and illusion" />
 
-                <TextView
-                    android:id="@+id/pager_farm_list_item_view_tv_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    tools:text="內湖清香農場" />
-
-                <TextView
-                    android:id="@+id/pager_farm_list_item_view_tv_subtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:textColor="@color/gray_8a"
-                    android:textSize="10sp"
-                    tools:text="A story of beauty and illusion" />
-
-            </LinearLayout>
         </LinearLayout>
-
-        <!--<TextView-->
-        <!--android:id="@+id/pager_farm_list_item_view_tv_more"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--android:background="@drawable/round_background_farm_green"-->
-        <!--android:paddingBottom="3dp"-->
-        <!--android:paddingLeft="10dp"-->
-        <!--android:paddingRight="10dp"-->
-        <!--android:paddingTop="3dp"-->
-        <!--android:text="@string/more"-->
-        <!--android:textColor="@android:color/white"-->
-        <!--android:textStyle="bold" />-->
-
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/pager_farm_list_item_view_fl_icon_fl"
+        android:background="@color/gray_8a" />
+    <!--<TextView-->
+    <!--android:id="@+id/pager_farm_list_item_view_tv_more"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:background="@drawable/round_background_farm_green"-->
+    <!--android:paddingBottom="3dp"-->
+    <!--android:paddingLeft="10dp"-->
+    <!--android:paddingRight="10dp"-->
+    <!--android:paddingTop="3dp"-->
+    <!--android:text="@string/more"-->
+    <!--android:textColor="@android:color/white"-->
+    <!--android:textStyle="bold" />-->
 
 </RelativeLayout>

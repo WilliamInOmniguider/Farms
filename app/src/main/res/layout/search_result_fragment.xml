@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/search_result_fragment_view_rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/default_background_color">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/search_result_fragment_view_tb"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+
+        <TextView
+            android:id="@+id/search_result_fragment_view_tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginRight="@dimen/default_padding"
+            android:drawableLeft="@drawable/button_pin_left_arrow"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            android:text="@string/action_bar_text_back"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/search_result_fragment_view_tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/action_bar_title_search_result"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_action_bar" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/search_result_fragment_view_srl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/search_result_fragment_view_tb">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/search_result_fragment_view_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</RelativeLayout>
