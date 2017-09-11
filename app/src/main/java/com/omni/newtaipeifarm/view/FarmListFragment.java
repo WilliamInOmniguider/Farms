@@ -19,9 +19,15 @@ import com.omni.newtaipeifarm.DataCacheManager;
 import com.omni.newtaipeifarm.R;
 import com.omni.newtaipeifarm.adapter.FarmInfoAdapter;
 import com.omni.newtaipeifarm.model.Farm;
+import com.omni.newtaipeifarm.model.FoodData;
+import com.omni.newtaipeifarm.model.OmniEvent;
 import com.omni.newtaipeifarm.network.FarmApi;
 import com.omni.newtaipeifarm.network.NetworkManager;
 import com.omni.newtaipeifarm.tool.DialogTools;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by wiliiamwang on 18/07/2017.
@@ -31,6 +37,7 @@ public class FarmListFragment extends Fragment {
 
     public interface FarmListListener {
         void onFarmsItemClick(Farm farm);
+
         void onItemMoreClick(Farm farm);
     }
 
@@ -43,6 +50,7 @@ public class FarmListFragment extends Fragment {
     private FarmInfoAdapter mFarmInfoAdapter;
     private TextView mRetryTV;
     private TextView mErrorMsgTV;
+    private EventBus mEventBus;
 
     public static FarmListFragment newInstance(FarmListListener listener) {
         FarmListFragment fragment = new FarmListFragment();
@@ -52,6 +60,13 @@ public class FarmListFragment extends Fragment {
         return fragment;
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(OmniEvent event) {
+        if (event.getType() == OmniEvent.TYPE_REFRESH_FARM_LIST_DATA) {
+            getAllFarmsData();
+        }
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -59,9 +74,23 @@ public class FarmListFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        if (mEventBus == null) {
+            mEventBus = EventBus.getDefault();
+        }
+        mEventBus.register(this);
+    }
+
+    @Override
     public void onDestroy() {
         super.onDestroy();
         mListener = null;
+
+        if (mEventBus != null) {
+            mEventBus.unregister(this);
+        }
     }
 
     @Nullable
@@ -91,11 +120,7 @@ public class FarmListFragment extends Fragment {
 
             mRV = (RecyclerView) mView.findViewById(R.id.pager_farm_list_layout_rv);
 
-            if (DataCacheManager.getInstance().getAllFarms() == null) {
-                getAllFarmsData();
-            } else {
-                setRVData();
-            }
+            getAllFarmsData();
         }
 
         return mView;
@@ -110,9 +135,7 @@ public class FarmListFragment extends Fragment {
             @Override
             public void onSucceed(Farm[] response) {
 
-                DataCacheManager.getInstance().setAllFarms(response);
-
-                setRVData();
+                setRVData(response);
                 mSRL.setRefreshing(false);
 
                 setErrorMsg("");
@@ -128,15 +151,13 @@ public class FarmListFragment extends Fragment {
         });
     }
 
-    private void setRVData() {
-        final Farm[] farms = DataCacheManager.getInstance().getAllFarms();
+    private void setRVData(final Farm[] farms) {
 
-        if (mFarmInfoAdapter == null) {
+//        if (mFarmInfoAdapter == null) {
             mFarmInfoAdapter = new FarmInfoAdapter(mContext, farms, new FarmInfoAdapter.FIViewHolderListener() {
                 @Override
                 public void onClickItem(View itemView, int position) {
                     if (mListener != null) {
-                        Log.e("@W@", "*** FarmListFragment click");
                         mListener.onFarmsItemClick(farms[position]);
                     }
                 }
@@ -155,9 +176,10 @@ public class FarmListFragment extends Fragment {
 //            mRV.addItemDecoration(divider);
 
             mRV.setAdapter(mFarmInfoAdapter);
-        } else {
-            mFarmInfoAdapter.notifyDataSetChanged();
-        }
+//        } else {
+//            mFarmInfoAdapter.setFarmsData(farms);
+//            mFarmInfoAdapter.notifyDataSetChanged();
+//        }
     }
 
     private void updateRVData() {

@@ -24,9 +24,9 @@
         android:textStyle="bold" />
 
     <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_above="@id/pager_farm_list_item_view_tv_more"/>-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_above="@id/pager_farm_list_item_view_tv_more"/>-->
 
     <FrameLayout
         android:id="@+id/pager_farm_list_item_view_fl_icon_fl"
@@ -71,27 +71,45 @@
             tools:text="1" />
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/pager_farm_list_item_view_tv_title"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                tools:text="內湖清香農場" />
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/pager_farm_list_item_view_tv_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/black"
+                    tools:text="內湖清香農場" />
+
+                <TextView
+                    android:id="@+id/pager_farm_list_item_view_tv_popular"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#f00"
+                    android:textSize="10sp"
+                    tools:text="人氣值：30" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/pager_farm_list_item_view_tv_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
+                android:ellipsize="end"
+                android:maxLines="2"
                 android:textColor="@color/gray_8a"
                 android:textSize="10sp"
-                tools:text="A story of beauty and illusion" />
+                tools:text="A story of beauty and illusion." />
 
         </LinearLayout>
     </LinearLayout>

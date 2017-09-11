@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/default_padding"
+    android:paddingRight="@dimen/default_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="3"
+                android:background="@color/farm_color" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/index_food_list_item_view_tv_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_padding"
+            android:layout_marginRight="@dimen/default_padding"
+            android:textSize="35sp"
+            tools:text="一月" />
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_centerInParent="true"
+                android:layout_weight="3"
+                android:background="@color/farm_color" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <com.omni.newtaipeifarm.view.WGridView
+        android:id="@+id/index_food_list_item_view_wgv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_padding"
+        android:horizontalSpacing="@dimen/default_padding"
+        android:numColumns="3"
+        android:orientation="horizontal"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/default_padding" />
+
+</LinearLayout>

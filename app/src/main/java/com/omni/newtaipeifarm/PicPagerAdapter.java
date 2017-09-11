@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
+import com.omni.newtaipeifarm.model.BannerObj;
+import com.omni.newtaipeifarm.network.NetworkManager;
 import com.omni.newtaipeifarm.test.TestModule;
 
 /**
@@ -16,9 +19,11 @@ import com.omni.newtaipeifarm.test.TestModule;
 public class PicPagerAdapter extends PagerAdapter {
 
     private Context mContext;
+    private BannerObj[] mBanners;
 
-    public PicPagerAdapter(Context context) {
+    public PicPagerAdapter(Context context, BannerObj[] banners) {
         mContext = context;
+        mBanners = banners;
     }
 
     @Override
@@ -28,21 +33,26 @@ public class PicPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return TestModule.values().length;
+        return mBanners.length;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        TestModule testModule = TestModule.values()[position];
+//        TestModule testModule = TestModule.values()[position];
+        BannerObj banner = mBanners[position];
 
         LayoutInflater inflater = LayoutInflater.from(mContext);
 
 //        ViewGroup layout = (ViewGroup) inflater.inflate(testModule.getLayoutResId(), container, false);
         ViewGroup layout = (ViewGroup) inflater.inflate(R.layout.farm_pic_layout, container, false);
-        layout.setBackgroundResource(testModule.getPicResId());
+//        layout.setBackgroundResource(testModule.getPicResId());
+
+        NetworkImageView bannerNIV = (NetworkImageView) layout.findViewById(R.id.farm_pic_layout_niv_banner);
+//        NetworkManager.getInstance().setNetworkImage(mContext, bannerNIV, banner.getImageURL());
+        NetworkManager.getInstance().setNetworkImage(mContext, bannerNIV, banner.getImageURL(), R.mipmap.ntpc_icon);
 
         TextView titleTV = (TextView) layout.findViewById(R.id.farm_pic_layout_tv_title);
-        titleTV.setText(testModule.getFarmTitle());
+        titleTV.setText(banner.getTitle());
 
         container.addView(layout);
 

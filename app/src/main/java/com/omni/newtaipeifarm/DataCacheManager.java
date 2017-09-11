@@ -30,7 +30,6 @@ public class DataCacheManager {
         return sDataCacheManager;
     }
 
-    private Farm[] mAllFarms = null;
     private Area[] mAllAreas = null;
     private FarmCategory[] mAllCategories = null;
 
@@ -43,14 +42,6 @@ public class DataCacheManager {
     private String mUserCurrentFloorLevel;
     private String mUserCurrentFloorPlanId;
     private OmniFloor mCurrentShowFloor;
-
-    public void setAllFarms(Farm[] allFarms) {
-        mAllFarms = allFarms;
-    }
-
-    public Farm[] getAllFarms() {
-        return mAllFarms;
-    }
 
     public Area[] getAllAreas() {
         return mAllAreas;

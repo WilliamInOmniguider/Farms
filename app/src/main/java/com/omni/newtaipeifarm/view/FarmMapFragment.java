@@ -467,7 +467,7 @@ public class FarmMapFragment extends Fragment implements OnMapReadyCallback, Goo
             }
             mBottomSheetBehavior.setPeekHeight(mPoiInfoLayout.getHeight());
             mPoiInfoLayout.requestLayout();
-            NetworkManager.getInstance().setNetworkImage(mContext, mPOIInfoIconNIV, mCurrentResult.getIcon());
+            NetworkManager.getInstance().setNetworkImage(mContext, mPOIInfoIconNIV, mCurrentResult.getIcon(), R.mipmap.ntpc_icon);
             mPOIInfoTitleTV.setText(mCurrentResult.getName());
             mPOIInfoSubtitleTV.setText(mCurrentResult.getAddress());
 

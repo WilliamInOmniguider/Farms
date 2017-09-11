@@ -8,6 +8,8 @@
     <string name="farm_content_pager_title_find_food">選好食</string>
     <string name="farm_info_pager_title_contact_info">聯 絡 資 訊</string>
     <string name="farm_info_pager_title_farm_intro">農 場 簡 介</string>
+    <string name="index_pager_title_farm">找好農</string>
+    <string name="index_pager_title_food">選好食</string>
     <string name="open_settings">打開設定</string>
     <string name="dialog_cancel">取消</string>
     <string name="dialog_title_no_network_connection">無網路連線</string>
@@ -21,13 +23,14 @@
     <string name="tool_bar_last_step">上一步</string>
     <string name="dialog_button_ok_text">OK</string>
     <string name="dialog_title_api_error">API Error</string>
-    <string name="dialog_title_text_normal_error">Error</string>
+    <string name="dialog_title_text_normal_error">提 示</string>
+    <string name="dialog_msg_search_no_result">查詢無結果</string>
     <string name="search_option_all">全部</string>
     <string name="dialog_title_text_log">Log</string>
     <string name="retry">重試</string>
     <string name="re_get_farms">取得附近農場</string>
     <string name="like">喜歡</string>
-    <string name="popular_sum">人氣：%1$s</string>
+    <string name="popular_sum">人氣值：%1$d</string>
 
     <string name="action_bar_title_home">首頁</string>
     <string name="action_bar_title_popularity">人氣</string>

@@ -10,6 +10,12 @@ import java.io.Serializable;
 
 public class AddFavoriteResponse implements Serializable {
 
+    public class FavoriteStatus {
+        public static final String INSERT_SUCCESS = "INSERT SUCCESS";
+        public static final String DELETE_SUCCESS = "DELETE SUCCESS";
+        public static final String WRITE_FAILED = "WRITE FAILED";
+    }
+
     @SerializedName("result")
     private String result;
     @SerializedName("status")

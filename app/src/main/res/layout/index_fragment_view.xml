@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/index_fragment_view_rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_yellow">
 
-</LinearLayout>
+    <include
+        android:id="@+id/index_fragment_view_action_bar"
+        layout="@layout/farm_action_bar" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/index_fragment_view_tl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/index_fragment_view_action_bar"
+        app:tabBackground="@drawable/tab_selector"
+        app:tabGravity="center"
+        app:tabIndicatorHeight="0dp"
+        app:tabPaddingEnd="0dp"
+        app:tabPaddingStart="0dp" />
+
+    <com.omni.newtaipeifarm.view.OmniViewPager
+        android:id="@+id/index_fragment_view_vp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/index_fragment_view_tl"
+        android:layout_marginTop="10dp"
+        app:slide_paging_enabled="false" />
+
+</RelativeLayout>

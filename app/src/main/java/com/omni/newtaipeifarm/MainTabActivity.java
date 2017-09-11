@@ -29,6 +29,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.indooratlas.android.sdk.IALocation;
 import com.indooratlas.android.sdk.IALocationListener;
 import com.indooratlas.android.sdk.IALocationManager;
@@ -44,6 +45,9 @@ import com.omni.newtaipeifarm.shop.ShopFragment;
 import com.omni.newtaipeifarm.tool.DialogTools;
 import com.omni.newtaipeifarm.tool.FarmText;
 import com.omni.newtaipeifarm.tool.Tools;
+import com.omni.newtaipeifarm.view.FarmInfoFragment;
+import com.omni.newtaipeifarm.view.FarmWebViewFragment;
+import com.omni.newtaipeifarm.view.SearchResultFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -67,6 +71,8 @@ public class MainTabActivity extends AppCompatActivity implements TabSelectListe
 
     private IALocationManager mIALocationManager;
     private IAResourceManager mIAResourceManager;
+
+//    private FirebaseAnalytics mFirebaseAnalytics;
 
     private boolean mIsIndoor = false;
 
@@ -94,6 +100,8 @@ public class MainTabActivity extends AppCompatActivity implements TabSelectListe
 //            mEventBus = EventBus.getDefault();
 //        }
 //        mEventBus.register(this);
+
+//        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
         setContentView(R.layout.main_tab_activity_view);
 
@@ -124,6 +132,14 @@ public class MainTabActivity extends AppCompatActivity implements TabSelectListe
             @Override
             public void onTabChanged(String tabId) {
                 updateTabView(mTabHost);
+
+                if (getSupportFragmentManager().findFragmentByTag(FarmWebViewFragment.TAG) != null) {
+                    getSupportFragmentManager().popBackStack();
+                } else if (getSupportFragmentManager().findFragmentByTag(FarmInfoFragment.TAG) != null) {
+                    getSupportFragmentManager().popBackStack();
+                } else if (getSupportFragmentManager().findFragmentByTag(SearchResultFragment.TAG) != null) {
+                    getSupportFragmentManager().popBackStack();
+                }
             }
         });
 
@@ -170,6 +186,15 @@ public class MainTabActivity extends AppCompatActivity implements TabSelectListe
             case 4:
                 return isSelected ? R.mipmap.button_more : R.mipmap.button_more;
 
+//            case 0:
+//                return isSelected ? R.mipmap.button_home : R.mipmap.button_home;
+//
+//            case 1:
+//                return isSelected ? R.mipmap.button_search : R.mipmap.button_search;
+//
+//            case 2:
+//                return isSelected ? R.mipmap.button_ec : R.mipmap.button_ec;
+
             default:
                 return isSelected ? R.mipmap.button_more : R.mipmap.button_more;
         }
@@ -203,9 +228,9 @@ public class MainTabActivity extends AppCompatActivity implements TabSelectListe
                 @Override
                 public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                     // TODO Auto-generated method stub
-                    DialogTools.getInstance().showErrorMessage(MainTabActivity.this,
-                            getString(R.string.dialog_title_text_normal_error),
-                            getString(R.string.not_open_location_setting_message));
+//                    DialogTools.getInstance().showErrorMessage(MainTabActivity.this,
+//                            getString(R.string.dialog_title_text_normal_error),
+//                            getString(R.string.not_open_location_setting_message));
                 }
             });
             dialog.show();
@@ -218,7 +243,7 @@ public class MainTabActivity extends AppCompatActivity implements TabSelectListe
         } else {
             getLocationFromGoogle();
 
-            // TODO: has leak here, let FarmListFragment click item no use
+            // TODO: has leak here
 //            requestIndoorPosition();
         }
     }

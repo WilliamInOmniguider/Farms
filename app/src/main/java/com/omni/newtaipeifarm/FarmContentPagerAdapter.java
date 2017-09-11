@@ -100,7 +100,8 @@ public class FarmContentPagerAdapter extends FragmentPagerAdapter {
         } else if (position == FarmContentPagerModule.FIND_FOOD.ordinal()) {
 
             return FarmFoodFragment.newInstance();
-        } else {
+        }
+        else {
             return null;
         }
     }

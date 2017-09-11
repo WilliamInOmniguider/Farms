@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,15 +17,27 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.NetworkImageView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.omni.newtaipeifarm.ARActivity;
+import com.omni.newtaipeifarm.PicPagerAdapter;
 import com.omni.newtaipeifarm.R;
+import com.omni.newtaipeifarm.WebViewActivity;
+import com.omni.newtaipeifarm.model.AddFavoriteResponse;
+import com.omni.newtaipeifarm.model.BannerObj;
 import com.omni.newtaipeifarm.model.Farm;
+import com.omni.newtaipeifarm.model.OmniEvent;
+import com.omni.newtaipeifarm.network.FarmApi;
 import com.omni.newtaipeifarm.network.NetworkManager;
 import com.omni.newtaipeifarm.tool.FarmText;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by wiliiamwang on 30/06/2017.
@@ -39,6 +52,9 @@ public class FarmInfoFragment extends Fragment {
     private Context mContext;
     private LayoutInflater mInflater;
     private TabLayout mDetailTL;
+    private int tempFavoriteCount;
+
+    private FirebaseAnalytics mFirebaseAnalytics;
 
     public static FarmInfoFragment newInstance(@NonNull Farm farm) {
         FarmInfoFragment fragment = new FarmInfoFragment();
@@ -54,6 +70,16 @@ public class FarmInfoFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         mContext = context;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        final Farm farm = (Farm) getArguments().getSerializable(S_KEY_FARM);
+
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(mContext);
+        sendTrack("id-農場介紹" + farm.getName(), "name-農場介紹" + farm.getName());
     }
 
     @Nullable
@@ -78,19 +104,57 @@ public class FarmInfoFragment extends Fragment {
             backTV.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    getActivity().getSupportFragmentManager().beginTransaction().remove(FarmInfoFragment.this).commit();
+//                    getActivity().getSupportFragmentManager().beginTransaction().remove(FarmInfoFragment.this).commit();
                     getActivity().getSupportFragmentManager().popBackStack();
                 }
             });
 
-            NetworkImageView picNIV = (NetworkImageView) mView.findViewById(R.id.farm_info_fragment_view_niv_photo);
-            NetworkManager.getInstance().setNetworkImage(getActivity(), picNIV, farm.getLogo(), R.mipmap.test_farm_pic);
+            RelativeLayout picPagerLayout = (RelativeLayout) mView.findViewById(R.id.farm_info_fragment_view_pic_pager);
+            ViewPager viewPager = (ViewPager) picPagerLayout.findViewById(R.id.pic_pager_layout_vp_farm_pic);
+            BannerObj[] bannerObjs = new BannerObj[farm.getBannerArray().length];
+            for (int i = 0; i < farm.getBannerArray().length; i++) {
+                bannerObjs[i] = new BannerObj("", farm.getBannerArray()[i]);
+            }
+            viewPager.setAdapter(new PicPagerAdapter(mContext, bannerObjs));
 
-//            TextView popularTV = (TextView) mView.findViewById(R.id.farm_info_fragment_view_tv_popular);
-//            popularTV.setText(getString(R.string.popular_sum, farm.getPopular()));
+            TabLayout tabLayout = (TabLayout) picPagerLayout.findViewById(R.id.pic_pager_layout_tl);
+            tabLayout.setupWithViewPager(viewPager, true);
+
+            final TextView popularTV = (TextView) mView.findViewById(R.id.farm_info_fragment_view_tv_popular);
+            popularTV.setText(getString(R.string.popular_sum, farm.getPopular()));
+            tempFavoriteCount = farm.getPopular();
+
+            final ImageView likeIV = (ImageView) mView.findViewById(R.id.farm_info_fragment_view_iv_like);
+            likeIV.setImageResource(farm.getFavorite() == 1 ? R.mipmap.button_heart_r : R.mipmap.button_heart_w);
+            likeIV.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FarmApi.getInstance().addToFavorite(mContext, farm.getSid(), new NetworkManager.NetworkManagerListener<AddFavoriteResponse>() {
+                        @Override
+                        public void onSucceed(AddFavoriteResponse response) {
+                            if (response.getStatus().equals(AddFavoriteResponse.FavoriteStatus.INSERT_SUCCESS)) {
+                                likeIV.setImageResource(R.mipmap.button_heart_r);
+                                popularTV.setText(getString(R.string.popular_sum, ++tempFavoriteCount));
+
+                                EventBus.getDefault().post(new OmniEvent(OmniEvent.TYPE_REFRESH_FARM_LIST_DATA, ""));
+                            } else if (response.getStatus().equals(AddFavoriteResponse.FavoriteStatus.DELETE_SUCCESS)) {
+                                likeIV.setImageResource(R.mipmap.button_heart_w);
+                                popularTV.setText(getString(R.string.popular_sum, --tempFavoriteCount));
+
+                                EventBus.getDefault().post(new OmniEvent(OmniEvent.TYPE_REFRESH_FARM_LIST_DATA, ""));
+                            }
+                        }
+
+                        @Override
+                        public void onFail(VolleyError error, boolean shouldRetry) {
+
+                        }
+                    });
+                }
+            });
 
             NetworkImageView iconNIV = (NetworkImageView) mView.findViewById(R.id.farm_info_fragment_view_niv);
-            NetworkManager.getInstance().setNetworkImage(mContext, iconNIV, farm.getIcon());
+            NetworkManager.getInstance().setNetworkImage(mContext, iconNIV, farm.getIcon(), R.mipmap.ntpc_icon);
 
             TextView titleTV = (TextView) mView.findViewById(R.id.farm_info_fragment_view_tv_title);
             titleTV.setText(farm.getName());
@@ -103,17 +167,58 @@ public class FarmInfoFragment extends Fragment {
 
             /** If farm.threeDURL isEmpty, hide this view. */
             LinearLayout vrLL = (LinearLayout) mView.findViewById(R.id.farm_info_fragment_view_ll_vr);
+            vrLL.setVisibility(TextUtils.isEmpty(farm.getThreeDURL()) ? View.GONE : View.VISIBLE);
+            vrLL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendTrack("id-VR環景" + farm.getName(), "name-VR環景" + farm.getName());
+
+                    Intent intent = new Intent(getActivity(), WebViewActivity.class);
+//                intent.putExtra(WebViewActivity.INTENT_KEY_WEB_URL, "https://walkinto.in/tour/-kphFz-0DzZyea2FMZAvz/_______");
+                    intent.putExtra(WebViewActivity.INTENT_KEY_WEB_URL, farm.getThreeDURL());
+                    getActivity().startActivity(intent);
+                }
+            });
 
 //            LinearLayout threeDLL = (LinearLayout) mView.findViewById(R.id.farm_info_fragment_view_ll_3d);
 
             LinearLayout ecLL = (LinearLayout) mView.findViewById(R.id.farm_info_fragment_view_ll_ec);
-            if (TextUtils.isEmpty(farm.getEcURL())) {
-                ecLL.setVisibility(View.GONE);
-            }
+            ecLL.setVisibility(TextUtils.isEmpty(farm.getEcURL()) ? View.GONE : View.VISIBLE);
+            ecLL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendTrack("id-農場商城" + farm.getName(), "name-農場商城" + farm.getName());
+
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.farm_info_fragment_view_fl, FarmWebViewFragment.newInstance(farm.getEcURL()), FarmWebViewFragment.TAG)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
 
             LinearLayout lineLL = (LinearLayout) mView.findViewById(R.id.farm_info_fragment_view_ll_line);
+            lineLL.setVisibility(TextUtils.isEmpty(farm.getLineId()) ? View.GONE : View.VISIBLE);
+            lineLL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(farm.getLineId()));
+                    startActivity(browserIntent);
+                }
+            });
 
             LinearLayout websiteLL = (LinearLayout) mView.findViewById(R.id.farm_info_fragment_view_ll_website);
+            websiteLL.setVisibility(TextUtils.isEmpty(farm.getWebURL()) ? View.GONE : View.VISIBLE);
+            websiteLL.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendTrack("id-農場微官網" + farm.getName(), "name-農場微官網" + farm.getName());
+
+                    getActivity().getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.farm_info_fragment_view_fl, FarmWebViewFragment.newInstance(farm.getWebURL()), FarmWebViewFragment.TAG)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
 
             ViewPager detailVP = (ViewPager) mView.findViewById(R.id.farm_info_fragment_view_vp_farm_content);
             detailVP.setAdapter(new FarmInfoPagerAdapter(getChildFragmentManager(), mContext, farm));
@@ -148,17 +253,6 @@ public class FarmInfoFragment extends Fragment {
                 }
             });
 
-//            ImageView iv360 = (ImageView) mView.findViewById(R.id.farm_info_fragment_view_iv_360);
-//            iv360.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(getActivity(), WebViewActivity.class);
-////                intent.putExtra(WebViewActivity.INTENT_KEY_WEB_URL, "https://walkinto.in/tour/-kphFz-0DzZyea2FMZAvz/_______");
-//                    intent.putExtra(WebViewActivity.INTENT_KEY_WEB_URL, farm.getThreeDURL());
-//                    getActivity().startActivity(intent);
-//                }
-//            });
-//
 //            ImageView arIV = (ImageView) mView.findViewById(R.id.farm_info_fragment_view_iv_ar);
 //            arIV.setOnClickListener(new View.OnClickListener() {
 //                @Override
@@ -166,18 +260,6 @@ public class FarmInfoFragment extends Fragment {
 //                    ensurePermission();
 //                }
 //            });
-
-//            OmniIconItem phoneOII = (OmniIconItem) mView.findViewById(R.id.farm_info_fragment_view_oii_phone);
-//            phoneOII.setTitleText(farm.getTel());
-//
-//            OmniIconItem websiteOII = (OmniIconItem) mView.findViewById(R.id.farm_info_fragment_view_oii_website);
-//            websiteOII.setTitleText(farm.getWebURL());
-//
-//            OmniIconItem placeOII = (OmniIconItem) mView.findViewById(R.id.farm_info_fragment_view_oii_place);
-//            placeOII.setTitleText(farm.getAddress());
-//
-//            OmniIconItem timeOII = (OmniIconItem) mView.findViewById(R.id.farm_info_fragment_view_oii_time);
-//            timeOII.setTitleText(farm.getOpenTime());
         }
 
         return mView;
@@ -218,5 +300,13 @@ public class FarmInfoFragment extends Fragment {
         if (shouldSetView) {
             tab.setCustomView(tv);
         }
+    }
+
+    private void sendTrack(String id, String name) {
+        Bundle bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, id);
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "cont_android");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 }

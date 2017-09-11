@@ -34,6 +34,7 @@ import com.indooratlas.android.sdk.IALocationManager;
 import com.indooratlas.android.sdk.IALocationRequest;
 import com.indooratlas.android.sdk.IARegion;
 import com.indooratlas.android.sdk.resources.IAResourceManager;
+import com.omni.newtaipeifarm.model.BannerObj;
 import com.omni.newtaipeifarm.model.Farm;
 import com.omni.newtaipeifarm.model.OmniEvent;
 import com.omni.newtaipeifarm.model.SearchFarmResult;
@@ -99,7 +100,17 @@ public class MainActivity extends AppCompatActivity implements IARegion.Listener
         inflater = LayoutInflater.from(this);
 
         mViewPager = (ViewPager) findViewById(R.id.main_activity_view_vp_farm_pic);
-        mViewPager.setAdapter(new PicPagerAdapter(this));
+        FarmApi.getInstance().getBanner(this, new NetworkManager.NetworkManagerListener<BannerObj[]>() {
+            @Override
+            public void onSucceed(BannerObj[] bannerObjs) {
+                mViewPager.setAdapter(new PicPagerAdapter(MainActivity.this, bannerObjs));
+            }
+
+            @Override
+            public void onFail(VolleyError error, boolean shouldRetry) {
+
+            }
+        });
 
         mTabLayout = (TabLayout) findViewById(R.id.main_activity_view_tl);
         mTabLayout.setupWithViewPager(mViewPager, true);
@@ -228,9 +239,9 @@ public class MainActivity extends AppCompatActivity implements IARegion.Listener
                 @Override
                 public void onClick(DialogInterface paramDialogInterface, int paramInt) {
                     // TODO Auto-generated method stub
-                    DialogTools.getInstance().showErrorMessage(MainActivity.this,
-                            getString(R.string.dialog_title_text_normal_error),
-                            getString(R.string.not_open_location_setting_message));
+//                    DialogTools.getInstance().showErrorMessage(MainActivity.this,
+//                            getString(R.string.dialog_title_text_normal_error),
+//                            getString(R.string.not_open_location_setting_message));
                 }
             });
             dialog.show();

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 /**
  * Created by wiliiamwang on 03/07/2017.
@@ -23,6 +24,7 @@ public class WebViewActivity extends Activity {
         String url = intent.getStringExtra(INTENT_KEY_WEB_URL);
 
         WebView wv = (WebView) findViewById(R.id.webview);
+        wv.setWebViewClient(new WebViewClient());
         wv.getSettings().setJavaScriptEnabled(true);
         wv.loadUrl(url);
 

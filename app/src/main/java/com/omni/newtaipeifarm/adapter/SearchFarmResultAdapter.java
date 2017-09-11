@@ -52,7 +52,7 @@ public class SearchFarmResultAdapter extends RecyclerView.Adapter<SearchFarmResu
     public void onBindViewHolder(ViewHolder holder, final int position) {
         final SearchFarmResult result = mResults[position];
 
-        NetworkManager.getInstance().setNetworkImage(mContext, holder.iconNIV, result.getIcon());
+        NetworkManager.getInstance().setNetworkImage(mContext, holder.iconNIV, result.getIcon(), R.mipmap.ntpc_icon);
         holder.indexTV.setText("" + (position + 1));
         holder.titleTV.setText(result.getName());
         holder.subtitleTV.setText(result.getAddress());

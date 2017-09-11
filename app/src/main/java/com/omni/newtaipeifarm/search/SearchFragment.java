@@ -165,7 +165,11 @@ public class SearchFragment extends Fragment {
 
                                 @Override
                                 public void onFail(VolleyError error, boolean shouldRetry) {
-                                    DialogTools.getInstance().showErrorMessage(getActivity(), R.string.dialog_title_api_error, error.getMessage());
+                                    if (error.getMessage().equals("INVALID STORE")) {
+                                        DialogTools.getInstance().showErrorMessage(getActivity(), R.string.dialog_title_text_normal_error, R.string.dialog_msg_search_no_result);
+                                    } else {
+                                        DialogTools.getInstance().showErrorMessage(getActivity(), R.string.dialog_title_api_error, error.getMessage());
+                                    }
                                 }
                             });
                 }

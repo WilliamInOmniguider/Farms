@@ -9,6 +9,10 @@ import android.os.Bundle;
 public class OmniEvent {
 
     public static final int TYPE_USER_LOCATION_CHANGED = 19;
+    public static final int TYPE_INDEX_FARM_ITEM_CLICKED = 20;
+    public static final int TYPE_INDEX_FOOD_ITEM_CLICKED = 21;
+    public static final int TYPE_HOME_FOOD_ITEM_CLICKED = 22;
+    public static final int TYPE_REFRESH_FARM_LIST_DATA = 23;
 
     private int mType;
     private String mContent;

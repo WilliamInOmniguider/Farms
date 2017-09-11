@@ -200,7 +200,11 @@ public class NetworkManager {
                             DialogTools.getInstance().dismissProgress(context);
                         } else {
                             DialogTools.getInstance().dismissProgress(context);
-                            DialogTools.getInstance().showErrorMessage(context, R.string.dialog_title_api_error, commonResponse.getErrorMessage());
+                            if (commonResponse.getErrorMessage().equals("INVALID STORE")) {
+                                DialogTools.getInstance().showErrorMessage(context, R.string.dialog_title_text_normal_error, R.string.dialog_msg_search_no_result);
+                            } else {
+                                DialogTools.getInstance().showErrorMessage(context, R.string.dialog_title_api_error, commonResponse.getErrorMessage());
+                            }
                         }
                     }
                 },

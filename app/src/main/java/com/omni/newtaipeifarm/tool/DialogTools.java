@@ -111,6 +111,10 @@ public class DialogTools {
         return null;
     }
 
+    public void showErrorMessage(Context context, @StringRes int titleRes, @StringRes int messageRes) {
+        showErrorMessage(context, context.getResources().getString(titleRes), context.getResources().getString(messageRes), null);
+    }
+
     public void showErrorMessage(Context context, @StringRes int titleRes, String message) {
         showErrorMessage(context, context.getResources().getString(titleRes), message, null);
     }

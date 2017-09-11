@@ -50,6 +50,8 @@ public class Farm implements Serializable {
     private String logo;
     @SerializedName("banner")
     private String banner;
+    @SerializedName("banner_array")
+    private String[] bannerArray;
     @SerializedName("category_id")
     private String categoryId;
     @SerializedName("event")
@@ -59,13 +61,15 @@ public class Farm implements Serializable {
     @SerializedName("owner_name")
     private String ownerName;
     @SerializedName("popular")
-    private String popular;
+    private int popular;
     @SerializedName("last_update")
     private String lastUpdate;
     @SerializedName("favorite")
-    private String favorite;
+    private int favorite;
     @SerializedName("ec_url")
     private String ecURL;
+    @SerializedName("line_id")
+    private String lineId;
 
     public String getSid() {
         return sid;
@@ -211,6 +215,14 @@ public class Farm implements Serializable {
         this.banner = banner;
     }
 
+    public String[] getBannerArray() {
+        return bannerArray;
+    }
+
+    public void setBannerArray(String[] bannerArray) {
+        this.bannerArray = bannerArray;
+    }
+
     public String getCityId() {
         return cityId;
     }
@@ -259,11 +271,11 @@ public class Farm implements Serializable {
         this.ownerName = ownerName;
     }
 
-    public String getPopular() {
+    public int getPopular() {
         return popular;
     }
 
-    public void setPopular(String popular) {
+    public void setPopular(int popular) {
         this.popular = popular;
     }
 
@@ -275,11 +287,11 @@ public class Farm implements Serializable {
         this.lastUpdate = lastUpdate;
     }
 
-    public String getFavorite() {
+    public int getFavorite() {
         return favorite;
     }
 
-    public void setFavorite(String favorite) {
+    public void setFavorite(int favorite) {
         this.favorite = favorite;
     }
 
@@ -289,6 +301,14 @@ public class Farm implements Serializable {
 
     public void setEcURL(String ecURL) {
         this.ecURL = ecURL;
+    }
+
+    public String getLineId() {
+        return lineId;
+    }
+
+    public void setLineId(String lineId) {
+        this.lineId = lineId;
     }
 
     public static class Builder {
@@ -391,6 +411,11 @@ public class Farm implements Serializable {
             return this;
         }
 
+        public Builder setBannerArray(String[] bannerArray) {
+            mFarm.setBannerArray(bannerArray);
+            return this;
+        }
+
         public Builder setCityId(String cityId) {
             mFarm.setCityId(cityId);
             return this;
@@ -421,7 +446,7 @@ public class Farm implements Serializable {
             return this;
         }
 
-        public Builder setPopular(String popular) {
+        public Builder setPopular(int popular) {
             mFarm.setPopular(popular);
             return this;
         }
@@ -431,13 +456,18 @@ public class Farm implements Serializable {
             return this;
         }
 
-        public Builder setFavorite(String favorite) {
+        public Builder setFavorite(int favorite) {
             mFarm.setFavorite(favorite);
             return this;
         }
 
         public Builder setEcURL(String ecURL) {
             mFarm.setEcURL(ecURL);
+            return this;
+        }
+
+        public Builder setLineId(String lineId) {
+            mFarm.setLineId(lineId);
             return this;
         }
 

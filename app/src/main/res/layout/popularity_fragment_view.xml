@@ -1,6 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/popularity_fragment_view_rl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_yellow">
 
-</LinearLayout>
+    <include
+        android:id="@+id/popularity_fragment_view_action_bar"
+        layout="@layout/farm_action_bar" />
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/popularity_result_fragment_view_srl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/popularity_fragment_view_action_bar">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/popularity_result_fragment_view_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <TextView
+        android:id="@+id/popularity_result_fragment_view_tv_retry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/round_background_farm_green"
+        android:paddingBottom="6dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="6dp"
+        android:text="@string/retry"
+        android:textColor="@android:color/white"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/popularity_result_fragment_view_tv_error_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/pager_farm_list_layout_tv_retry"
+        android:layout_marginBottom="10dp"
+        android:gravity="center" />
+
+</RelativeLayout>
