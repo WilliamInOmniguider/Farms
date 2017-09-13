@@ -13,6 +13,8 @@
     <string name="open_settings">打開設定</string>
     <string name="dialog_cancel">取消</string>
     <string name="dialog_title_no_network_connection">無網路連線</string>
+    <string name="dialog_message_loading">載入中......</string>
+    <string name="dialog_message_api_time_out">發生為預期錯誤，請重試</string>
     <string name="no_network_connection_message">無網路連線！請確認網路連線。</string>
     <string name="not_open_location_setting_message">沒有開啟位置服務，無法顯示地圖</string>
     <string name="more">MORE</string>
@@ -22,7 +24,8 @@
     <string name="search_range">搜尋範圍 %1$d km</string>
     <string name="tool_bar_last_step">上一步</string>
     <string name="dialog_button_ok_text">OK</string>
-    <string name="dialog_title_api_error">API Error</string>
+    <!--<string name="dialog_title_api_error">API Error</string>-->
+    <string name="dialog_title_api_error">提 示</string>
     <string name="dialog_title_text_normal_error">提 示</string>
     <string name="dialog_msg_search_no_result">查詢無結果</string>
     <string name="search_option_all">全部</string>
@@ -31,6 +34,7 @@
     <string name="re_get_farms">取得附近農場</string>
     <string name="like">喜歡</string>
     <string name="popular_sum">人氣值：%1$d</string>
+    <string name="go_into_vr">進入VR導覽</string>
 
     <string name="action_bar_title_home">首頁</string>
     <string name="action_bar_title_popularity">人氣</string>

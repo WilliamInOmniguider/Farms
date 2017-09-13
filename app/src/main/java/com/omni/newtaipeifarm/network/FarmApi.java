@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class FarmApi {
 
-    private final int TIMEOUT = 15000;
+    private final int TIMEOUT = 25000;
     private final String CIRCLE = "farm";
 
     public static class SortMode {
@@ -49,6 +49,10 @@ public class FarmApi {
         return mFarmApi;
     }
 
+    private String getDeviceId(Context context) {
+        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+
     public void getAllFarms(Context context, String sortMode, NetworkManager.NetworkManagerListener<Farm[]> listener) {
 //        DialogTools.getInstance().showProgress(context);
 
@@ -56,7 +60,7 @@ public class FarmApi {
         Map<String, String> params = new HashMap<>();
         params.put("circle", CIRCLE);
         params.put("list", sortMode);
-        params.put("device_id", Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID));
+        params.put("device_id", getDeviceId(context));
 
         NetworkManager.getInstance().addJsonRequestToCommonObj(context, Request.Method.GET, url, params, Farm[].class, TIMEOUT, listener);
     }
@@ -108,19 +112,19 @@ public class FarmApi {
         params.put("range", String.valueOf(range));
         params.put("a_id", areaId);
         params.put("keyword", keywords);
-        params.put("device_id", Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID));
+        params.put("device_id", getDeviceId(context));
 
         NetworkManager.getInstance().addJsonRequestToCommonObj(context, Request.Method.GET, url, params, SearchFarmResult[].class, TIMEOUT, listener);
     }
 
     public void addToFavorite(Context context, String farmId,
                               NetworkManager.NetworkManagerListener<AddFavoriteResponse> listener) {
-        DialogTools.getInstance().showProgress(context);
+//        DialogTools.getInstance().showProgress(context);
 
         String url = NetworkManager.DOMAIN_NAME + "api/favorite";
         Map<String, String> params = new HashMap<>();
         params.put("sid", farmId);
-        params.put("device_id", Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID));
+        params.put("device_id", getDeviceId(context));
 
         NetworkManager.getInstance().addJsonRequest(context, Request.Method.GET, url, params, AddFavoriteResponse.class, TIMEOUT, listener);
     }
@@ -146,7 +150,6 @@ public class FarmApi {
 
         String url = NetworkManager.DOMAIN_NAME + "api/get_monthlist";
         DateFormat dateFormat = new SimpleDateFormat("MM");
-        Log.d("Month", dateFormat.format(new Date()));
         Map<String, String> params = new HashMap<>();
         params.put("m", dateFormat.format(new Date()));
 
@@ -158,7 +161,7 @@ public class FarmApi {
         Map<String, String> params = new HashMap<>();
         params.put("circle", CIRCLE);
         params.put("list", SortMode.AREA);
-        params.put("device_id", Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID));
+        params.put("device_id", getDeviceId(context));
 
         NetworkManager.getInstance().addJsonRequestToCommonObj(context, Request.Method.GET, url, params, AreaFarm[].class, TIMEOUT, listener);
     }

@@ -55,7 +55,7 @@ public class DialogTools {
 
     public void showProgress(Context context) {
         if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(context);
+            mProgressDialog = new ProgressDialog(context, R.style.AppCompatAlertDialogStyle);
             mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             mProgressDialog.setCanceledOnTouchOutside(false);
             mProgressDialog.setCancelable(false);

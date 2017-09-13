@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "791419570199",
+    "firebase_url": "https://farm-e82ca.firebaseio.com",
+    "project_id": "farm-e82ca",
+    "storage_bucket": "farm-e82ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791419570199:android:73d06bc6136b55e4",
+        "android_client_info": {
+          "package_name": "com.omni.newtaipeifarm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791419570199-ncbt86ck14f2ib2jl7t4hrgl3s9oo2m5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBkWz8PAGZDPAsoPAFs8Rw6bj0Hj4fDRwQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

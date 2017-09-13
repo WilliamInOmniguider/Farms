@@ -132,4 +132,6 @@ public class DataCacheManager {
     public void setCurrentShowFloor(OmniFloor floor) {
         mCurrentShowFloor = floor;
     }
+
+    public boolean isVRTutoShowed = false;
 }

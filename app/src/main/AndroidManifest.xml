@@ -67,6 +67,7 @@
 
         <activity
             android:name=".WebViewActivity"
+            android:configChanges="orientation|screenSize"
             android:label="Web"
             android:parentActivityName=".MainTabActivity">
             <meta-data

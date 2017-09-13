@@ -213,7 +213,7 @@ public class NetworkManager {
                     public void onErrorResponse(VolleyError error) {
                         if (error.networkResponse == null && error.getClass().equals(TimeoutError.class)) {
                             Log.e("@W@", "*** Error NetworkResponse Timeout, timeMs : " + error.getNetworkTimeMs());
-                            error = new VolleyError("Call API timeout");
+                            error = new VolleyError(context.getString(R.string.dialog_message_api_time_out));
                         }
 
                         listener.onFail(error, (TextUtils.isEmpty(error.getMessage()) && error.getCause() == null && error.networkResponse == null));
@@ -294,7 +294,7 @@ public class NetworkManager {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         if (error.networkResponse == null && error.getClass().equals(TimeoutError.class)) {
-                            error = new VolleyError("Call API timeout");
+                            error = new VolleyError(context.getString(R.string.dialog_message_api_time_out));
                         }
                         listener.onFail(error, (TextUtils.isEmpty(error.getMessage()) && error.getCause() == null && error.networkResponse == null));
 

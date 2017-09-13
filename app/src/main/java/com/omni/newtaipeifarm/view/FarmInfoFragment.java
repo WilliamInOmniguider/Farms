@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -53,6 +54,8 @@ public class FarmInfoFragment extends Fragment {
     private LayoutInflater mInflater;
     private TabLayout mDetailTL;
     private int tempFavoriteCount;
+    private ViewPager mPicVP;
+    private PicPagerAdapter mPicPagerAdapter;
 
     private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -110,15 +113,16 @@ public class FarmInfoFragment extends Fragment {
             });
 
             RelativeLayout picPagerLayout = (RelativeLayout) mView.findViewById(R.id.farm_info_fragment_view_pic_pager);
-            ViewPager viewPager = (ViewPager) picPagerLayout.findViewById(R.id.pic_pager_layout_vp_farm_pic);
+            mPicVP = (ViewPager) picPagerLayout.findViewById(R.id.pic_pager_layout_vp_farm_pic);
             BannerObj[] bannerObjs = new BannerObj[farm.getBannerArray().length];
             for (int i = 0; i < farm.getBannerArray().length; i++) {
                 bannerObjs[i] = new BannerObj("", farm.getBannerArray()[i]);
             }
-            viewPager.setAdapter(new PicPagerAdapter(mContext, bannerObjs));
+            mPicPagerAdapter = new PicPagerAdapter(mContext, bannerObjs);
+            mPicVP.setAdapter(mPicPagerAdapter);
 
             TabLayout tabLayout = (TabLayout) picPagerLayout.findViewById(R.id.pic_pager_layout_tl);
-            tabLayout.setupWithViewPager(viewPager, true);
+            tabLayout.setupWithViewPager(mPicVP, true);
 
             final TextView popularTV = (TextView) mView.findViewById(R.id.farm_info_fragment_view_tv_popular);
             popularTV.setText(getString(R.string.popular_sum, farm.getPopular()));
@@ -265,6 +269,15 @@ public class FarmInfoFragment extends Fragment {
         return mView;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (mTimeHandler == null) {
+            mTimeHandler = new Handler();
+            mTimeHandler.postDelayed(timerRun, 3000);
+        }
+    }
+
     private void ensurePermission() {
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(),
@@ -309,4 +322,37 @@ public class FarmInfoFragment extends Fragment {
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "cont_android");
         mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
+
+    @Override
+    public void onDestroy() {
+        if (mTimeHandler != null && timerRun != null) {
+            mTimeHandler.removeCallbacks(timerRun);
+        }
+        super.onDestroy();
+    }
+
+    private Handler mTimeHandler;
+    private int mCountTime = 0;
+    private int mPicVPIndex = 0;
+    private final Runnable timerRun = new Runnable() {
+        public void run() {
+            ++mCountTime; // 經過的秒數 + 1
+
+            if (mCountTime == 3) {
+                mCountTime = 0;
+//                sendUserLocationToServer();
+                mPicVPIndex = mPicVP.getCurrentItem();
+                if (mPicVPIndex < mPicPagerAdapter.getCount() - 1) {
+                    mPicVPIndex++;
+                } else {
+                    mPicVPIndex = 0;
+                }
+
+                mPicVP.setCurrentItem(mPicVPIndex, true);
+            }
+
+            mTimeHandler.removeCallbacks(this);
+            mTimeHandler.postDelayed(this, 1000);
+        }
+    };
 }
