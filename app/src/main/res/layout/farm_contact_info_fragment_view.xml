@@ -34,7 +34,7 @@
             omni:icon_src="@drawable/icon_time" />
 
         <com.omni.newtaipeifarm.view.OmniIconItem
-            android:id="@+id/farm_contact_info_fragment_view_oii_category"
+            android:id="@+id/farm_contact_info_fragment_view_oii_keywords"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_padding"

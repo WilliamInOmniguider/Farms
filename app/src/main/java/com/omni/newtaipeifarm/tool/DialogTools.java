@@ -12,6 +12,8 @@ import android.text.TextUtils;
 
 import com.omni.newtaipeifarm.R;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Created by wiliiamwang on 05/07/2017.
  */
@@ -61,14 +63,15 @@ public class DialogTools {
             mProgressDialog.setCancelable(false);
             mProgressDialog.setMessage(null);
         }
-        if (context != null && !((Activity) context).isFinishing() && !mProgressDialog.isShowing()) {
+        if (context != null && !((Activity) context).isFinishing() && !((Activity) context).isDestroyed() && !mProgressDialog.isShowing()) {
             mProgressDialog.show();
         }
     }
 
     public void dismissProgress(Context context) {
-        if (context != null && !((Activity) context).isFinishing() && mProgressDialog != null && mProgressDialog.isShowing()) {
+        if (context != null && !((Activity) context).isFinishing() && !((Activity) context).isDestroyed() && mProgressDialog != null && mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
+            mProgressDialog = null;
         }
     }
 
