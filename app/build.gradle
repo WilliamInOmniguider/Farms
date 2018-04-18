@@ -29,8 +29,8 @@ android {
         applicationId "com.omni.newtaipeifarm"
         minSdkVersion 18
         targetSdkVersion 25
-        versionCode 7
-        versionName "1.5"
+        versionCode 8
+        versionName "1.6"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
 

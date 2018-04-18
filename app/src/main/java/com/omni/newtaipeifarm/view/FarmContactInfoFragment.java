@@ -56,7 +56,7 @@ public class FarmContactInfoFragment extends Fragment {
             openTimeOII.setTitleText(farm.getOpenTime());
 
             OmniIconItem categoryOII = (OmniIconItem) mView.findViewById(R.id.farm_contact_info_fragment_view_oii_keywords);
-            categoryOII.setTitleText(farm.getKeywords());
+            categoryOII.setTitleText(farm.getEvent());
         }
 
         return mView;
